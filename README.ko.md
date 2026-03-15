@@ -10,13 +10,19 @@ AI 에이전트를 위한 하네스 구축 도구. 프로젝트의 하네스 엔
 
 ### Claude Code
 
-레포에서 플러그인을 직접 사용합니다:
+1. 마켓플레이스를 추가한 후 플러그인을 설치합니다:
 
 ```bash
-# 플러그인 추가 (Claude Code 내에서)
-/install-plugin rulebased-io/harness
+# 1단계: 마켓플레이스 추가 (Claude Code 내에서)
+/plugin marketplace add rulebased-io/harness
 
-# 또는 로컬에서 테스트
+# 2단계: 플러그인 설치
+/plugin install rulebased@rulebased-io-harness
+```
+
+2. 또는 개발 중 로컬에서 테스트:
+
+```bash
 claude --plugin-dir ./packages/plugin-claude
 ```
 

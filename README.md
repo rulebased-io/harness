@@ -10,13 +10,19 @@ A harness-building tool for AI agents. Assess how well your project's harness en
 
 ### Claude Code
 
-Use the plugin directly from the repository:
+1. Add the marketplace, then install the plugin:
 
 ```bash
-# Add the plugin (inside Claude Code)
-/install-plugin rulebased-io/harness
+# Step 1: Add marketplace (inside Claude Code)
+/plugin marketplace add rulebased-io/harness
 
-# Or test locally with --plugin-dir
+# Step 2: Install the plugin
+/plugin install rulebased@rulebased-io-harness
+```
+
+2. Or test locally during development:
+
+```bash
 claude --plugin-dir ./packages/plugin-claude
 ```
 
