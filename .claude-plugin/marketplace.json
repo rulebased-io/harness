@@ -1,11 +1,21 @@
 {
   "name": "harness",
-  "description": "Harness engineering tools for AI agents by rulebased.io",
+  "owner": {
+    "name": "rulebased.io",
+    "email": "jungyoun@rulebased.io"
+  },
+  "metadata": {
+    "description": "Harness engineering tools for AI agents"
+  },
   "plugins": [
     {
       "name": "rulebased",
       "description": "Harness audit, score, init, recommend, and eval-log for AI agent projects",
-      "source": "./packages/plugin-claude"
+      "source": "./packages/plugin-claude",
+      "version": "1.0.0",
+      "author": {
+        "name": "rulebased.io"
+      }
     }
   ]
 }
