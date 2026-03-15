@@ -1,0 +1,4 @@
+{
+  "$schema": "https://claude.ai/schemas/hooks.json",
+  "description": "하네스 플러그인 자동화 훅"
+}

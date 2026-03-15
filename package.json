@@ -1,0 +1,40 @@
+{
+  "name": "@rulebased/harness",
+  "version": "1.0.0",
+  "description": "AI 에이전트를 위한 하네스 구축 도구 - 프로젝트의 하네스를 점검, 추천, 초기화합니다",
+  "type": "module",
+  "main": "dist/core/auditor.js",
+  "bin": {
+    "rulebased-harness": "dist/cli/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/cli/index.ts",
+    "start": "node dist/cli/index.js",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
+    "test:watch": "node --experimental-vm-modules node_modules/.bin/jest --watch",
+    "test:coverage": "node --experimental-vm-modules node_modules/.bin/jest --coverage",
+    "audit": "tsx src/cli/index.ts audit",
+    "recommend": "tsx src/cli/index.ts recommend"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.0.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist/",
+    "skills/",
+    "hooks/",
+    "agents/",
+    "templates/",
+    ".claude-plugin/"
+  ],
+  "license": "MIT"
+}

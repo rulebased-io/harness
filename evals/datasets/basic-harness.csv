@@ -1,0 +1,14 @@
+id,should_trigger,prompt,expected_tool,tags
+init-01,true,"Jest 기반 TypeScript 테스트 하네스를 초기화해줘",init_harness,init;jest
+init-02,true,"Mocha로 JavaScript 테스트 환경을 만들어줘",init_harness,init;mocha
+init-03,true,"Vitest 프로젝트를 세팅해줘",init_harness,init;vitest
+test-01,true,"로그인 기능의 테스트 케이스를 만들어줘",generate_test_case,test;auth
+test-02,true,"사용자 CRUD API 테스트를 생성해줘",generate_test_case,test;crud
+test-03,true,"이메일 검증 유틸리티 함수 테스트를 작성해줘",generate_test_case,test;util
+suite-01,true,"사용자 인증 전체 통합 테스트를 만들어줘",generate_integration_suite,suite;auth
+suite-02,true,"결제 시스템의 CRUD 통합 테스트를 생성해줘",generate_integration_suite,suite;payment
+perf-01,true,"API 엔드포인트 5개가 100ms 이내에 응답하는지 테스트해줘",generate_performance_harness,perf;api
+perf-02,true,"데이터베이스 쿼리 성능 테스트를 만들어줘",generate_performance_harness,perf;db
+neg-01,false,"이 코드를 리팩토링해줘",none,negative
+neg-02,false,"TypeScript 문법을 설명해줘",none,negative
+neg-03,false,"Git 커밋 메시지를 작성해줘",none,negative
