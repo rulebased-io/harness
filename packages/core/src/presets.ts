@@ -1,8 +1,8 @@
 /**
- * 하네스 프리셋 정의
+ * Harness preset definitions
  *
- * minimal: 최소한의 하네스 (AGENTS.md + 빌드 명령어)
- * standard: 표준 하네스 (전체 체크)
+ * minimal: Minimal harness (AGENTS.md + build commands)
+ * standard: Standard harness (all checks enabled)
  */
 
 import type { HarnessConfig, PresetName } from "./types.js";
@@ -23,7 +23,7 @@ const MINIMAL_CONFIG: HarnessConfig = {
 
 const STANDARD_CONFIG: HarnessConfig = {
   preset: "standard",
-  // 모든 체크 활성화 (기본값)
+  // All checks enabled (default)
 };
 
 const PRESETS: Record<PresetName, HarnessConfig> = {
@@ -31,12 +31,12 @@ const PRESETS: Record<PresetName, HarnessConfig> = {
   standard: STANDARD_CONFIG,
 };
 
-/** 프리셋 이름으로 설정 가져오기 */
+/** Get configuration by preset name */
 export function getPreset(name: PresetName): HarnessConfig {
   return PRESETS[name];
 }
 
-/** .harness.json 파일과 프리셋을 병합 */
+/** Merge a .harness.json file with a preset */
 export function mergeConfig(
   base: HarnessConfig,
   override: Partial<HarnessConfig>,
@@ -60,7 +60,7 @@ export function mergeConfig(
   };
 }
 
-/** 체크 ID가 config에 의해 비활성화되었는지 확인 */
+/** Check whether a check ID is disabled by the config */
 export function isCheckDisabled(checkId: string, config: HarnessConfig): boolean {
   if (config.checks?.enable?.length) {
     return !config.checks.enable.includes(checkId);
@@ -68,7 +68,7 @@ export function isCheckDisabled(checkId: string, config: HarnessConfig): boolean
   return config.checks?.disable?.includes(checkId) ?? false;
 }
 
-/** 심각도 오버라이드 */
+/** Override severity for a check */
 export function getSeverity(
   checkId: string,
   defaultSeverity: "critical" | "important" | "nice-to-have",

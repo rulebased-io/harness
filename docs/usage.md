@@ -1,54 +1,54 @@
-# 사용법
+# Usage
 
-## 도구 1: init_harness
+## Tool 1: init_harness
 
-테스트 프로젝트를 초기화합니다.
+Initializes a test project.
 
-### 파라미터
+### Parameters
 
-| 이름 | 타입 | 필수 | 설명 |
-|------|------|------|------|
-| name | string | O | 하네스 이름 |
-| framework | "jest" / "mocha" / "vitest" / "custom" | O | 테스트 프레임워크 |
-| language | "typescript" / "javascript" / "python" | X | 언어 (기본: typescript) |
-| testDir | string | X | 테스트 디렉토리 (기본: ./tests) |
-| outputDir | string | X | 결과 디렉토리 (기본: ./test-results) |
-| parallel | boolean | X | 병렬 실행 (기본: true) |
-| timeout | number | X | 타임아웃 ms (기본: 30000) |
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| name | string | Yes | Harness name |
+| framework | "jest" / "mocha" / "vitest" / "custom" | Yes | Test framework |
+| language | "typescript" / "javascript" / "python" | No | Language (default: typescript) |
+| testDir | string | No | Test directory (default: ./tests) |
+| outputDir | string | No | Output directory (default: ./test-results) |
+| parallel | boolean | No | Parallel execution (default: true) |
+| timeout | number | No | Timeout in ms (default: 30000) |
 
-### 사용 예
+### Example
 
 ```
-"Jest 기반의 TypeScript 하네스를 'my-api-tests'로 초기화해줘"
+"Initialize a Jest-based TypeScript harness named 'my-api-tests'"
 ```
 
 ---
 
-## 도구 2: generate_test_case
+## Tool 2: generate_test_case
 
-개별 테스트 케이스를 생성합니다.
+Generates an individual test case.
 
-### 파라미터
+### Parameters
 
-| 이름 | 타입 | 필수 | 설명 |
-|------|------|------|------|
-| testName | string | O | 테스트 이름 |
-| description | string | O | 테스트 설명 |
-| execute | string | O | 실행할 코드 |
-| assertions | string[] | O | assertion 목록 |
-| setup | string | X | 사전 세팅 코드 |
-| teardown | string | X | 정리 코드 |
-| framework | string | X | 프레임워크 |
-| language | string | X | 언어 |
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| testName | string | Yes | Test name |
+| description | string | Yes | Test description |
+| execute | string | Yes | Code to execute |
+| assertions | string[] | Yes | List of assertions |
+| setup | string | No | Setup code |
+| teardown | string | No | Teardown code |
+| framework | string | No | Framework |
+| language | string | No | Language |
 
-### 사용 예
+### Example
 
 ```
-"사용자 로그인 기능의 테스트 케이스를 만들어줘.
-이메일과 비밀번호로 로그인 시도하고 토큰 반환을 검증해야 해"
+"Create a test case for the user login feature.
+It should attempt login with email and password and verify that a token is returned."
 ```
 
-### 생성 결과 (TypeScript)
+### Generated Output (TypeScript)
 
 ```typescript
 describe('UserLogin', () => {
@@ -56,7 +56,7 @@ describe('UserLogin', () => {
     // setup code
   });
 
-  it('올바른 자격증명으로 로그인 성공', async () => {
+  it('should successfully log in with valid credentials', async () => {
     // Arrange & Act
     const result = await login('user@test.com', 'password');
 
@@ -69,66 +69,66 @@ describe('UserLogin', () => {
 
 ---
 
-## 도구 3: generate_integration_suite
+## Tool 3: generate_integration_suite
 
-여러 테스트를 통합 스위트로 묶습니다.
+Combines multiple tests into an integration suite.
 
-### 파라미터
+### Parameters
 
-| 이름 | 타입 | 필수 | 설명 |
-|------|------|------|------|
-| testCases | TestCase[] | O | 테스트 케이스 배열 |
-| setupCode | string | X | 전체 세팅 코드 |
-| teardownCode | string | X | 전체 정리 코드 |
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| testCases | TestCase[] | Yes | Array of test cases |
+| setupCode | string | No | Global setup code |
+| teardownCode | string | No | Global teardown code |
 
-### 사용 예
-
-```
-"DB 연결, 사용자 CRUD, 정리까지 순서대로 테스트하는 통합 하네스를 만들어줘"
-```
-
----
-
-## 도구 4: generate_performance_harness
-
-응답 시간 측정 테스트를 생성합니다.
-
-### 파라미터
-
-| 이름 | 타입 | 필수 | 설명 |
-|------|------|------|------|
-| testCases | TestCase[] | O | 테스트 케이스 배열 |
-| threshold | number | X | 임계값 ms (기본: 100) |
-
-### 사용 예
+### Example
 
 ```
-"5개 API 엔드포인트가 200ms 이내로 응답하는지 테스트해줘"
+"Create an integration harness that tests DB connection, user CRUD, and cleanup in sequence."
 ```
 
 ---
 
-## 도구 5: get_harness_config
+## Tool 4: generate_performance_harness
 
-현재 설정 상태를 조회합니다.
+Generates response time measurement tests.
 
-### 사용 예
+### Parameters
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| testCases | TestCase[] | Yes | Array of test cases |
+| threshold | number | No | Threshold in ms (default: 100) |
+
+### Example
 
 ```
-"현재 하네스 설정을 보여줘"
+"Test whether 5 API endpoints respond within 200ms."
 ```
 
 ---
 
-## 실전 시나리오
+## Tool 5: get_harness_config
 
-### 새 프로젝트 테스트 환경 구축
+Views the current configuration status.
 
-1. `init_harness`로 프레임워크 설정 생성
-2. `generate_test_case`로 개별 테스트 작성
-3. `generate_integration_suite`로 통합
-4. `generate_performance_harness`로 성능 검증
+### Example
 
-### CI/CD 연동
+```
+"Show the current harness configuration."
+```
 
-생성된 테스트 코드를 프로젝트에 복사하면 기존 CI 파이프라인에서 바로 실행 가능합니다.
+---
+
+## Practical Scenarios
+
+### Setting Up a Test Environment for a New Project
+
+1. Generate framework configuration with `init_harness`
+2. Write individual tests with `generate_test_case`
+3. Combine them with `generate_integration_suite`
+4. Validate performance with `generate_performance_harness`
+
+### CI/CD Integration
+
+Copy the generated test code into your project and it can run immediately in your existing CI pipeline.

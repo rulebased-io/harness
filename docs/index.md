@@ -1,23 +1,23 @@
-# 문서 인덱스
+# Documentation Index
 
-Harness Builder MCP 프로젝트 문서 안내입니다.
+A guide to the Harness Builder MCP project documentation.
 
-## 문서 목록
+## Document List
 
-| 문서 | 설명 | 대상 |
-|------|------|------|
-| [getting-started.md](getting-started.md) | 빠른 시작 가이드 | 처음 사용자 |
-| [architecture.md](architecture.md) | MCP 개념, 아키텍처, 코드 구조 | 개발자, 기여자 |
-| [setup.md](setup.md) | 설치, 배포, 팀 공유, 문제 해결 | 설치/운영 |
-| [usage.md](usage.md) | 5가지 도구 상세 사용법과 예제 | 모든 사용자 |
+| Document | Description | Audience |
+|----------|-------------|----------|
+| [getting-started.md](getting-started.md) | Quick start guide | First-time users |
+| [architecture.md](architecture.md) | MCP concepts, architecture, code structure | Developers, contributors |
+| [setup.md](setup.md) | Installation, deployment, team sharing, troubleshooting | Setup/operations |
+| [usage.md](usage.md) | Detailed usage guide and examples for the 5 tools | All users |
 
-## 읽기 순서
+## Recommended Reading Order
 
-1. **사용만 하려면**: getting-started → usage
-2. **개발/기여하려면**: getting-started → architecture → setup
-3. **전체 이해**: 순서대로 모두
+1. **Just want to use it**: getting-started → usage
+2. **Want to develop/contribute**: getting-started → architecture → setup
+3. **Full understanding**: Read all in order
 
-## 원본 참고
+## Original References
 
-`docs/draft/` 폴더에 초기 기획 단계의 원본 문서들이 보관되어 있습니다.
-이 문서들은 아카이브 목적이며, 위의 정식 문서가 최신 정보입니다.
+The `docs/draft/` folder contains the original documents from the initial planning phase.
+These documents are kept for archival purposes; the official documents listed above contain the most up-to-date information.

@@ -1,39 +1,39 @@
-# 설치 및 배포
+# Installation and Deployment
 
-## 로컬 개발 환경 세팅
+## Local Development Environment Setup
 
 ```bash
-# 클론
+# Clone
 git clone <repo-url>
 cd harness-plugin
 
-# 의존성 설치
+# Install dependencies
 npm install
 
-# 빌드
+# Build
 npm run build
 
-# 테스트
+# Test
 npm test
 
-# 아키텍처 제약 검증
+# Architecture constraint validation
 npm run lint
 ```
 
-### 빌드 결과
+### Build Output
 
 ```
 dist/
-├── index.js           # MCP 서버 (entry point)
-├── harness-builder.js # 핵심 로직
-├── types.js           # 타입 정의
-├── eval/              # Eval 시스템
-└── constraints/       # 제약 검증
+├── index.js           # MCP server (entry point)
+├── harness-builder.js # Core logic
+├── types.js           # Type definitions
+├── eval/              # Eval system
+└── constraints/       # Constraint validation
 ```
 
-## Claude Code에 연결
+## Connecting to Claude Code
 
-### 옵션 A: NPM 패키지 (배포 후)
+### Option A: NPM Package (after publishing)
 
 ```json
 {
@@ -46,7 +46,7 @@ dist/
 }
 ```
 
-### 옵션 B: 로컬 빌드
+### Option B: Local Build
 
 ```json
 {
@@ -59,7 +59,7 @@ dist/
 }
 ```
 
-### 옵션 C: 개발 모드 (tsx)
+### Option C: Development Mode (tsx)
 
 ```json
 {
@@ -72,34 +72,34 @@ dist/
 }
 ```
 
-### 설정 파일 위치
+### Configuration File Location
 
-| OS | 경로 |
+| OS | Path |
 |----|------|
 | macOS/Linux | `~/.config/Claude/claude_desktop_config.json` |
 | Windows | `%APPDATA%\Claude\claude_desktop_config.json` |
 
-연결 후 Claude Code 재시작 → `/mcp`로 확인
+After connecting, restart Claude Code and verify with `/mcp`.
 
-## MCP Inspector로 디버깅
+## Debugging with MCP Inspector
 
 ```bash
 npm run build
 npm run mcp:inspect
-# 브라우저에서 http://localhost:5173 접속
+# Open http://localhost:5173 in your browser
 ```
 
-## NPM 배포
+## Publishing to NPM
 
 ```bash
 npm login
-npm version patch   # 버전 업
-npm publish          # 퍼블리시
+npm version patch   # Bump version
+npm publish          # Publish
 ```
 
-## 팀 공유
+## Team Sharing
 
-프로젝트 루트에 `.claude.json` 추가:
+Add `.claude.json` to the project root:
 
 ```json
 {
@@ -112,9 +112,9 @@ npm publish          # 퍼블리시
 }
 ```
 
-팀원이 프로젝트를 받으면 자동으로 MCP 서버 로드.
+When team members clone the project, the MCP server loads automatically.
 
-## Docker 배포
+## Docker Deployment
 
 ```dockerfile
 FROM node:18-slim
@@ -125,11 +125,11 @@ COPY dist/ ./dist/
 CMD ["node", "dist/index.js"]
 ```
 
-## 문제 해결
+## Troubleshooting
 
-| 문제 | 해결 |
-|------|------|
-| "Command not found" | `npm install -g harness-builder-mcp` 또는 절대경로 사용 |
-| MCP 연결 안 됨 | Claude Code 재시작, `tail -f ~/.config/Claude/logs/mcp*.log` |
-| TypeScript 컴파일 오류 | `npx tsc --noEmit`, `rm -rf node_modules && npm install` |
-| 도구 안 보임 | 설정 파일 JSON 포맷 검증, Claude Code 재시작 |
+| Problem | Solution |
+|---------|----------|
+| "Command not found" | `npm install -g harness-builder-mcp` or use an absolute path |
+| MCP connection failed | Restart Claude Code, `tail -f ~/.config/Claude/logs/mcp*.log` |
+| TypeScript compilation error | `npx tsc --noEmit`, `rm -rf node_modules && npm install` |
+| Tools not visible | Validate the configuration file JSON format, restart Claude Code |

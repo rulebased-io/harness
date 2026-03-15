@@ -1,8 +1,8 @@
 /**
- * Harness Initializer - 프로젝트에 하네스 구조를 초기화
+ * Harness Initializer - Initializes the harness structure in a project
  *
- * 대상 프로젝트에 AGENTS.md, specs/, tasks/ 등을 생성합니다.
- * 이미 존재하는 파일은 건너뜁니다 (--force 시 덮어쓰기).
+ * Creates AGENTS.md, specs/, tasks/, etc. in the target project.
+ * Existing files are skipped (use --force to overwrite).
  */
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -13,7 +13,7 @@ import type { InitOptions, InitResult, PresetName } from "./types.js";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const TEMPLATES_DIR = join(__dirname, "../../templates");
 
-/** 프로젝트에 하네스 구조 초기화 */
+/** Initialize the harness structure in a project */
 export function initHarness(projectPath: string, options: InitOptions = {}): InitResult {
   const created: string[] = [];
   const skipped: string[] = [];
@@ -45,13 +45,13 @@ export function initHarness(projectPath: string, options: InitOptions = {}): Ini
   writeTemplate(
     projectPath,
     "CLAUDE.md",
-    `# CLAUDE.md\n\n@AGENTS.md 를 참조하세요.\n`,
+    `# CLAUDE.md\n\nSee @AGENTS.md for details.\n`,
     options.force,
     created,
     skipped,
   );
 
-  // 3. Workflow 폴더
+  // 3. Workflow folders
   if (!options.skipWorkflow) {
     for (const dir of [
       "specs/todo",
@@ -64,7 +64,7 @@ export function initHarness(projectPath: string, options: InitOptions = {}): Ini
     }
   }
 
-  // 4. .gitignore에 추가 (있으면 스킵)
+  // 4. Add .gitignore (skip if it already exists)
   const gitignorePath = join(projectPath, ".gitignore");
   if (!existsSync(gitignorePath)) {
     writeTemplate(projectPath, ".gitignore", defaultGitignore(), options.force, created, skipped);
@@ -73,7 +73,7 @@ export function initHarness(projectPath: string, options: InitOptions = {}): Ini
   return {
     created,
     skipped,
-    message: `하네스 초기화 완료: ${created.length}개 생성, ${skipped.length}개 스킵`,
+    message: `Harness initialization complete: ${created.length} created, ${skipped.length} skipped`,
   };
 }
 
@@ -82,44 +82,44 @@ export function initHarness(projectPath: string, options: InitOptions = {}): Ini
 function generateAgentsMd(projectName: string): string {
   return `# AGENTS.md - ${projectName}
 
-이 파일은 AI 에이전트가 이 프로젝트에서 작업할 때 따라야 하는 규칙을 정의합니다.
+This file defines the rules that AI agents must follow when working on this project.
 
-## 프로젝트 개요
+## Project Overview
 
-${projectName} - TODO: 프로젝트 설명을 작성하세요.
+${projectName} - TODO: Write a project description.
 
-## 빌드 & 테스트
+## Build & Test
 
 \`\`\`bash
-# TODO: 프로젝트에 맞는 빌드/테스트 명령어를 작성하세요
+# TODO: Write the build/test commands for your project
 npm install
 npm run build
 npm test
 \`\`\`
 
-**코드 변경 후 반드시 빌드와 테스트를 확인하세요.**
+**Always verify that builds and tests pass after making code changes.**
 
-## 프로젝트 구조
+## Project Structure
 
 \`\`\`
-TODO: 디렉토리 구조와 각 모듈의 역할을 설명하세요.
+TODO: Describe the directory structure and the role of each module.
 \`\`\`
 
-## 코딩 규칙
+## Coding Rules
 
-- TODO: 이 프로젝트의 코딩 컨벤션을 작성하세요
-- TODO: 사용하는 언어/프레임워크별 규칙
+- TODO: Document the coding conventions for this project
+- TODO: Add rules specific to your language/framework
 
-## 흔한 실수 방지
+## Common Pitfalls
 
-1. TODO: 과거 에이전트가 저지른 실수를 기록하세요
-2. 이 목록은 실패가 발생할 때마다 업데이트합니다
+1. TODO: Record mistakes that agents have made in the past
+2. This list should be updated whenever a failure occurs
 
-## 파일 수정 시 체크리스트
+## Checklist for File Changes
 
-- [ ] 빌드 성공
-- [ ] 테스트 통과
-- [ ] lint 통과
+- [ ] Build succeeds
+- [ ] Tests pass
+- [ ] Lint passes
 `;
 }
 

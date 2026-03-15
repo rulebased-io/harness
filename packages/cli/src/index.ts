@@ -18,30 +18,30 @@ const command = args[0];
 
 function printUsage(): void {
   console.log(`
-  @rulebased/harness - AI 에이전트를 위한 하네스 구축 도구
+  @rulebased/harness - Harness scaffolding tool for AI agents
   https://github.com/rulebased-io/harness
 
   Usage:
     rulebased-harness <command> [options]
 
   Commands:
-    audit [path]          하네스 구축 정도 점검 (17개 항목, 0-100 점수)
-    recommend [path]      빠진 하네스 요소 추천 (우선순위별)
-    init [path]           하네스 구조 초기화 (AGENTS.md, specs/, tasks/)
+    audit [path]          Audit harness coverage (17 criteria, score 0-100)
+    recommend [path]      Recommend missing harness elements (by priority)
+    init [path]           Initialize harness structure (AGENTS.md, specs/, tasks/)
 
   Options:
-    --force               기존 파일 덮어쓰기 (init)
-    --json                JSON 형식 출력 (audit, recommend)
-    -h, --help            도움말
-    -v, --version         버전 정보
+    --force               Overwrite existing files (init)
+    --json                Output in JSON format (audit, recommend)
+    -h, --help            Show help
+    -v, --version         Show version
 
   Examples:
-    rulebased-harness audit              현재 디렉토리 점검
-    rulebased-harness audit ./my-app     특정 경로 점검
-    rulebased-harness audit --json       JSON 출력
-    rulebased-harness recommend          개선 추천
-    rulebased-harness init               하네스 초기화
-    rulebased-harness init --force       기존 파일 덮어쓰기
+    rulebased-harness audit              Audit the current directory
+    rulebased-harness audit ./my-app     Audit a specific path
+    rulebased-harness audit --json       Output as JSON
+    rulebased-harness recommend          Get improvement recommendations
+    rulebased-harness init               Initialize harness
+    rulebased-harness init --force       Overwrite existing files
 
   Skills (skills.sh):
     npx skills add rulebased-io/harness

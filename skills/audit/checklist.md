@@ -1,53 +1,53 @@
 # Harness Audit Checklist
 
-## Context Engineering (핵심)
+## Context Engineering (Core)
 
-| ID | 항목 | 심각도 | 확인 방법 |
-|----|------|--------|-----------|
-| ctx-agents-exists | AGENTS.md 존재 | critical | `AGENTS.md` 파일 존재 여부 |
-| ctx-agents-build | 빌드 명령어 포함 | critical | AGENTS.md에 npm/yarn/pnpm/make 등 명령어 |
-| ctx-agents-arch | 아키텍처 설명 | important | AGENTS.md에 구조/계층/디렉토리 설명 |
-| ctx-agents-pitfalls | 흔한 실수 방지 | important | AGENTS.md에 주의/금지/피해야 할 사항 |
-| ctx-claude-exists | CLAUDE.md 존재 | important | `CLAUDE.md` 파일 존재 여부 |
+| ID | Item | Severity | How to Check |
+|----|------|----------|--------------|
+| ctx-agents-exists | AGENTS.md exists | critical | Check if `AGENTS.md` file exists |
+| ctx-agents-build | Includes build commands | critical | AGENTS.md contains npm/yarn/pnpm/make commands |
+| ctx-agents-arch | Architecture description | important | AGENTS.md describes structure/layers/directories |
+| ctx-agents-pitfalls | Common pitfalls | important | AGENTS.md lists warnings/restrictions/things to avoid |
+| ctx-claude-exists | CLAUDE.md exists | important | Check if `CLAUDE.md` file exists |
 
 ## Workflow
 
-| ID | 항목 | 심각도 | 확인 방법 |
-|----|------|--------|-----------|
-| wf-specs-dir | specs 폴더 | nice-to-have | `specs/` 또는 `spec/` 존재 |
-| wf-tasks-dir | tasks 폴더 | nice-to-have | `tasks/` 또는 `task/` 존재 |
+| ID | Item | Severity | How to Check |
+|----|------|----------|--------------|
+| wf-specs-dir | specs directory | nice-to-have | `specs/` or `spec/` exists |
+| wf-tasks-dir | tasks directory | nice-to-have | `tasks/` or `task/` exists |
 
 ## Constraints
 
-| ID | 항목 | 심각도 | 확인 방법 |
-|----|------|--------|-----------|
-| cst-lint | 린터/포맷터 | important | .eslintrc, biome.json 등 존재 |
-| cst-precommit | Pre-commit 훅 | nice-to-have | .husky/, lefthook.yml 등 존재 |
+| ID | Item | Severity | How to Check |
+|----|------|----------|--------------|
+| cst-lint | Linter/formatter | important | .eslintrc, biome.json, etc. exist |
+| cst-precommit | Pre-commit hook | nice-to-have | .husky/, lefthook.yml, etc. exist |
 
 ## Eval
 
-| ID | 항목 | 심각도 | 확인 방법 |
-|----|------|--------|-----------|
-| eval-dir | Eval 데이터셋 | nice-to-have | evals/ 또는 eval/ 존재 |
+| ID | Item | Severity | How to Check |
+|----|------|----------|--------------|
+| eval-dir | Eval dataset | nice-to-have | evals/ or eval/ exists |
 
 ## Conventions
 
-| ID | 항목 | 심각도 | 확인 방법 |
-|----|------|--------|-----------|
-| conv-editorconfig | .editorconfig | nice-to-have | 파일 존재 |
-| conv-ts-strict | TS strict 모드 | important | tsconfig.json에 strict: true |
+| ID | Item | Severity | How to Check |
+|----|------|----------|--------------|
+| conv-editorconfig | .editorconfig | nice-to-have | File exists |
+| conv-ts-strict | TS strict mode | important | tsconfig.json has strict: true |
 
 ## Build & Test
 
-| ID | 항목 | 심각도 | 확인 방법 |
-|----|------|--------|-----------|
-| build-test-script | 테스트 스크립트 | critical | package.json scripts.test 존재 |
-| build-build-script | 빌드 스크립트 | important | package.json scripts.build 존재 |
-| build-ci | CI/CD 설정 | nice-to-have | .github/workflows/ 등 존재 |
+| ID | Item | Severity | How to Check |
+|----|------|----------|--------------|
+| build-test-script | Test script | critical | package.json scripts.test exists |
+| build-build-script | Build script | important | package.json scripts.build exists |
+| build-ci | CI/CD configuration | nice-to-have | .github/workflows/ etc. exists |
 
 ## Documentation
 
-| ID | 항목 | 심각도 | 확인 방법 |
-|----|------|--------|-----------|
-| docs-readme | README.md | important | 파일 존재 |
-| docs-gitignore | .gitignore | important | 파일 존재 |
+| ID | Item | Severity | How to Check |
+|----|------|----------|--------------|
+| docs-readme | README.md | important | File exists |
+| docs-gitignore | .gitignore | important | File exists |

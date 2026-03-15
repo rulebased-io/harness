@@ -1,10 +1,10 @@
 /**
- * Harness Auditor - 프로젝트의 하네스 구축 정도를 점검
+ * Harness Auditor - Evaluates the harness setup of a project
  *
- * OpenAI Harness Engineering의 3가지 기둥을 기준으로 감사:
- * 1. Context Engineering (AGENTS.md, 문서)
- * 2. Architectural Constraints (제약, lint)
- * 3. Eval System (평가 데이터셋)
+ * Audits based on the 3 pillars of OpenAI Harness Engineering:
+ * 1. Context Engineering (AGENTS.md, documentation)
+ * 2. Architectural Constraints (constraints, lint)
+ * 3. Eval System (evaluation datasets)
  */
 
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
@@ -12,7 +12,7 @@ import { join } from "node:path";
 import type { AuditCheck, AuditCategory, AuditReport, HarnessConfig } from "./types.js";
 import { getPreset, mergeConfig, isCheckDisabled, getSeverity } from "./presets.js";
 
-/** .harness.json 로드 (없으면 standard 프리셋) */
+/** Load .harness.json (falls back to standard preset if not found) */
 export function loadConfig(projectPath: string): HarnessConfig {
   const configPath = join(projectPath, ".harness.json");
   const base = getPreset("standard");
@@ -28,7 +28,7 @@ export function loadConfig(projectPath: string): HarnessConfig {
   }
 }
 
-/** 프로젝트 경로에 대해 하네스 감사 실행 */
+/** Run a harness audit on the given project path */
 export function audit(projectPath: string, config?: HarnessConfig): AuditReport {
   const cfg = config ?? loadConfig(projectPath);
 
@@ -42,7 +42,7 @@ export function audit(projectPath: string, config?: HarnessConfig): AuditReport 
     ...auditDocs(projectPath),
   ];
 
-  // 프리셋/설정에 따라 체크 필터링 + 심각도 오버라이드
+  // Filter checks and override severity based on preset/config
   const checks = allChecks
     .filter((c) => !isCheckDisabled(c.id, cfg))
     .map((c) => ({
@@ -58,65 +58,65 @@ export function audit(projectPath: string, config?: HarnessConfig): AuditReport 
 function auditContext(p: string): AuditCheck[] {
   const checks: AuditCheck[] = [];
 
-  // AGENTS.md 존재
+  // AGENTS.md existence
   const agentsPath = join(p, "AGENTS.md");
   const agentsExists = existsSync(agentsPath);
   checks.push({
     id: "ctx-agents-exists",
     category: "context",
-    name: "AGENTS.md 존재",
-    description: "프로젝트 루트에 AGENTS.md가 있어야 합니다",
+    name: "AGENTS.md exists",
+    description: "AGENTS.md must be present in the project root",
     pass: agentsExists,
     severity: "critical",
-    fix: "AGENTS.md 파일을 생성하세요. /rulebased:harness-init 으로 자동 생성 가능합니다.",
+    fix: "Create an AGENTS.md file. You can auto-generate one with /rulebased:harness-init.",
   });
 
   if (agentsExists) {
     const content = readFileSync(agentsPath, "utf-8");
 
-    // 빌드 명령어 섹션
+    // Build commands section
     checks.push({
       id: "ctx-agents-build",
       category: "context",
-      name: "AGENTS.md에 빌드 명령어 포함",
-      description: "에이전트가 빌드/테스트 방법을 알아야 합니다",
+      name: "AGENTS.md includes build commands",
+      description: "Agents need to know how to build and test the project",
       pass: /npm run|yarn|pnpm|make|cargo|go build/i.test(content),
       severity: "critical",
-      fix: "AGENTS.md에 '## 빌드 & 테스트' 섹션을 추가하세요.",
+      fix: "Add a '## Build & Test' section to AGENTS.md.",
     });
 
-    // 아키텍처 정보
+    // Architecture information
     checks.push({
       id: "ctx-agents-arch",
       category: "context",
-      name: "AGENTS.md에 아키텍처 설명 포함",
-      description: "프로젝트 구조와 계층 설명이 필요합니다",
+      name: "AGENTS.md includes architecture description",
+      description: "Project structure and layer descriptions are needed",
       pass: /구조|아키텍처|architecture|계층|layer|디렉토리/i.test(content),
       severity: "important",
-      fix: "AGENTS.md에 프로젝트 구조/아키텍처 섹션을 추가하세요.",
+      fix: "Add a project structure/architecture section to AGENTS.md.",
     });
 
-    // 흔한 실수
+    // Common pitfalls
     checks.push({
       id: "ctx-agents-pitfalls",
       category: "context",
-      name: "AGENTS.md에 흔한 실수 방지 목록",
-      description: "과거 에이전트 실패에서 도출된 규칙이 있어야 합니다",
+      name: "AGENTS.md includes common pitfalls list",
+      description: "Rules derived from past agent failures should be documented",
       pass: /실수|주의|금지|하지.마|pitfall|gotcha|avoid|don'?t/i.test(content),
       severity: "important",
-      fix: "AGENTS.md에 '## 흔한 실수 방지' 섹션을 추가하세요.",
+      fix: "Add a '## Common Pitfalls' section to AGENTS.md.",
     });
   }
 
-  // CLAUDE.md 존재
+  // CLAUDE.md existence
   checks.push({
     id: "ctx-claude-exists",
     category: "context",
-    name: "CLAUDE.md 존재",
-    description: "Claude Code가 자동으로 읽는 프로젝트 가이드",
+    name: "CLAUDE.md exists",
+    description: "Project guide that Claude Code reads automatically",
     pass: existsSync(join(p, "CLAUDE.md")),
     severity: "important",
-    fix: "CLAUDE.md 파일을 생성하세요. AGENTS.md를 참조하는 것만으로도 충분합니다.",
+    fix: "Create a CLAUDE.md file. Simply referencing AGENTS.md is sufficient.",
   });
 
   return checks;
@@ -131,22 +131,22 @@ function auditWorkflow(p: string): AuditCheck[] {
   checks.push({
     id: "wf-specs-dir",
     category: "workflow",
-    name: "specs 폴더 존재",
-    description: "아이디어/요구사항을 기록하는 specs 폴더",
+    name: "specs folder exists",
+    description: "A specs folder for recording ideas and requirements",
     pass: hasSpecs,
     severity: "nice-to-have",
-    fix: "specs/todo, specs/done, specs/backlog 폴더를 생성하세요.",
+    fix: "Create specs/todo, specs/done, and specs/backlog folders.",
   });
 
   const hasTasks = existsSync(join(p, "tasks")) || existsSync(join(p, "task"));
   checks.push({
     id: "wf-tasks-dir",
     category: "workflow",
-    name: "tasks 폴더 존재",
-    description: "구현 단위 작업을 추적하는 tasks 폴더",
+    name: "tasks folder exists",
+    description: "A tasks folder for tracking implementation work units",
     pass: hasTasks,
     severity: "nice-to-have",
-    fix: "tasks/todo, tasks/done 폴더를 생성하세요.",
+    fix: "Create tasks/todo and tasks/done folders.",
   });
 
   return checks;
@@ -157,7 +157,7 @@ function auditWorkflow(p: string): AuditCheck[] {
 function auditConstraints(p: string): AuditCheck[] {
   const checks: AuditCheck[] = [];
 
-  // lint/format 설정 존재
+  // lint/format configuration exists
   const lintFiles = [
     ".eslintrc", ".eslintrc.js", ".eslintrc.json", ".eslintrc.yml",
     "eslint.config.js", "eslint.config.mjs",
@@ -170,11 +170,11 @@ function auditConstraints(p: string): AuditCheck[] {
   checks.push({
     id: "cst-lint",
     category: "constraints",
-    name: "린터/포맷터 설정 존재",
-    description: "코드 스타일을 기계적으로 강제하는 설정",
+    name: "Linter/formatter configuration exists",
+    description: "Configuration that mechanically enforces code style",
     pass: hasLint,
     severity: "important",
-    fix: "ESLint, Prettier, Biome 등의 설정 파일을 추가하세요.",
+    fix: "Add a configuration file for ESLint, Prettier, Biome, or similar.",
   });
 
   // pre-commit hook
@@ -184,11 +184,11 @@ function auditConstraints(p: string): AuditCheck[] {
   checks.push({
     id: "cst-precommit",
     category: "constraints",
-    name: "Pre-commit 훅 설정",
-    description: "커밋 전 자동 검증으로 제약을 강제합니다",
+    name: "Pre-commit hook configured",
+    description: "Enforces constraints via automatic validation before commits",
     pass: hasHusky || hasLefthook || hasPreCommit,
     severity: "nice-to-have",
-    fix: "Husky, Lefthook, 또는 pre-commit을 설정하세요.",
+    fix: "Set up Husky, Lefthook, or pre-commit.",
   });
 
   return checks;
@@ -204,11 +204,11 @@ function auditEval(p: string): AuditCheck[] {
   checks.push({
     id: "eval-dir",
     category: "eval",
-    name: "Eval 데이터셋 존재",
-    description: "에이전트 행동을 평가하는 데이터셋",
+    name: "Eval dataset exists",
+    description: "A dataset for evaluating agent behavior",
     pass: hasEval,
     severity: "nice-to-have",
-    fix: "evals/datasets/ 폴더에 평가 프롬프트 CSV를 추가하세요.",
+    fix: "Add evaluation prompt CSVs to the evals/datasets/ folder.",
   });
 
   return checks;
@@ -223,14 +223,14 @@ function auditConventions(p: string): AuditCheck[] {
   checks.push({
     id: "conv-editorconfig",
     category: "conventions",
-    name: ".editorconfig 존재",
-    description: "에디터 간 일관된 코딩 스타일",
+    name: ".editorconfig exists",
+    description: "Consistent coding style across editors",
     pass: existsSync(join(p, ".editorconfig")),
     severity: "nice-to-have",
-    fix: ".editorconfig 파일을 추가하세요.",
+    fix: "Add an .editorconfig file.",
   });
 
-  // TypeScript strict (tsconfig.json 존재 시)
+  // TypeScript strict (if tsconfig.json exists)
   const tsconfigPath = join(p, "tsconfig.json");
   if (existsSync(tsconfigPath)) {
     try {
@@ -238,14 +238,14 @@ function auditConventions(p: string): AuditCheck[] {
       checks.push({
         id: "conv-ts-strict",
         category: "conventions",
-        name: "TypeScript strict 모드",
-        description: "strict: true로 타입 안전성 강화",
+        name: "TypeScript strict mode",
+        description: "Enforce type safety with strict: true",
         pass: /"strict"\s*:\s*true/.test(tsconfig),
         severity: "important",
-        fix: "tsconfig.json에 \"strict\": true를 추가하세요.",
+        fix: "Add \"strict\": true to tsconfig.json.",
       });
     } catch {
-      // tsconfig 파싱 실패 시 스킵
+      // Skip if tsconfig parsing fails
     }
   }
 
@@ -267,28 +267,28 @@ function auditBuild(p: string): AuditCheck[] {
       checks.push({
         id: "build-test-script",
         category: "build",
-        name: "테스트 스크립트 정의",
-        description: "npm test로 테스트를 실행할 수 있어야 합니다",
+        name: "Test script defined",
+        description: "Tests should be runnable via npm test",
         pass: "test" in scripts,
         severity: "critical",
-        fix: "package.json scripts에 \"test\" 명령어를 추가하세요.",
+        fix: "Add a \"test\" command to the scripts section of package.json.",
       });
 
       checks.push({
         id: "build-build-script",
         category: "build",
-        name: "빌드 스크립트 정의",
-        description: "npm run build로 빌드할 수 있어야 합니다",
+        name: "Build script defined",
+        description: "Project should be buildable via npm run build",
         pass: "build" in scripts,
         severity: "important",
-        fix: "package.json scripts에 \"build\" 명령어를 추가하세요.",
+        fix: "Add a \"build\" command to the scripts section of package.json.",
       });
     } catch {
-      // package.json 파싱 실패
+      // package.json parsing failed
     }
   }
 
-  // CI 설정
+  // CI configuration
   const ciPaths = [
     ".github/workflows",
     ".gitlab-ci.yml",
@@ -300,11 +300,11 @@ function auditBuild(p: string): AuditCheck[] {
   checks.push({
     id: "build-ci",
     category: "build",
-    name: "CI/CD 설정 존재",
-    description: "자동 빌드/테스트 파이프라인",
+    name: "CI/CD configuration exists",
+    description: "Automated build/test pipeline",
     pass: hasCI,
     severity: "nice-to-have",
-    fix: ".github/workflows/ 에 CI 워크플로우를 추가하세요.",
+    fix: "Add a CI workflow under .github/workflows/.",
   });
 
   return checks;
@@ -318,22 +318,22 @@ function auditDocs(p: string): AuditCheck[] {
   checks.push({
     id: "docs-readme",
     category: "docs",
-    name: "README.md 존재",
-    description: "프로젝트 기본 문서",
+    name: "README.md exists",
+    description: "Basic project documentation",
     pass: existsSync(join(p, "README.md")) || existsSync(join(p, "readme.md")),
     severity: "important",
-    fix: "README.md를 작성하세요.",
+    fix: "Write a README.md.",
   });
 
   // .gitignore
   checks.push({
     id: "docs-gitignore",
     category: "docs",
-    name: ".gitignore 존재",
-    description: "불필요한 파일 추적 방지",
+    name: ".gitignore exists",
+    description: "Prevents tracking unnecessary files",
     pass: existsSync(join(p, ".gitignore")),
     severity: "important",
-    fix: ".gitignore 파일을 추가하세요.",
+    fix: "Add a .gitignore file.",
   });
 
   return checks;
@@ -345,7 +345,7 @@ function buildReport(projectPath: string, checks: AuditCheck[]): AuditReport {
   const passed = checks.filter((c) => c.pass).length;
   const failed = checks.filter((c) => !c.pass).length;
 
-  // 가중치 점수: critical=3, important=2, nice-to-have=1
+  // Weighted score: critical=3, important=2, nice-to-have=1
   const weights: Record<string, number> = { critical: 3, important: 2, "nice-to-have": 1 };
   let weightedTotal = 0;
   let weightedPassed = 0;
@@ -362,7 +362,7 @@ function buildReport(projectPath: string, checks: AuditCheck[]): AuditReport {
     score >= 60 ? "C" :
     score >= 40 ? "D" : "F";
 
-  // 카테고리별 집계
+  // Aggregate by category
   const categories: AuditCategory[] = ["context", "workflow", "constraints", "eval", "conventions", "build", "docs"];
   const byCategory: Record<string, { passed: number; total: number }> = {};
   for (const cat of categories) {
@@ -394,7 +394,7 @@ function buildReport(projectPath: string, checks: AuditCheck[]): AuditReport {
   };
 }
 
-/** 감사 리포트를 읽기 좋은 텍스트로 포맷 */
+/** Format an audit report as readable text */
 export function formatReport(report: AuditReport): string {
   const lines: string[] = [];
 
@@ -404,7 +404,7 @@ export function formatReport(report: AuditReport): string {
   lines.push(`**Passed: ${report.summary.passed}/${report.summary.total}** | Critical: ${report.summary.byCritical.passed}/${report.summary.byCritical.total}`);
   lines.push(``);
 
-  // 카테고리별 요약
+  // Summary by category
   lines.push(`### Category Breakdown`);
   lines.push(``);
   const catNames: Record<AuditCategory, string> = {
@@ -423,7 +423,7 @@ export function formatReport(report: AuditReport): string {
     lines.push(`- [${icon}] ${label}: ${s.passed}/${s.total}`);
   }
 
-  // 실패 항목
+  // Failed items
   const failed = report.checks.filter((c) => !c.pass);
   if (failed.length > 0) {
     lines.push(``);
@@ -441,7 +441,7 @@ export function formatReport(report: AuditReport): string {
   return lines.join("\n");
 }
 
-/** 카테고리별 상세 점수 리포트 */
+/** Detailed score report by category */
 export function formatScore(report: AuditReport): string {
   const lines: string[] = [];
 
@@ -460,7 +460,7 @@ export function formatScore(report: AuditReport): string {
     docs: "Documentation",
   };
 
-  // 카테고리별 점수 + 항목 상세
+  // Score + item details by category
   for (const [cat, label] of Object.entries(catNames)) {
     const catChecks = report.checks.filter((c) => c.category === cat);
     if (catChecks.length === 0) continue;

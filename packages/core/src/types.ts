@@ -1,5 +1,5 @@
 /**
- * 하네스 시스템 핵심 타입 정의
+ * Core type definitions for the harness system
  */
 
 // ─── Audit ───
@@ -18,11 +18,11 @@ export interface AuditCheck {
 export type AuditCategory =
   | "context"       // AGENTS.md, CLAUDE.md
   | "workflow"      // specs/, tasks/
-  | "constraints"   // 아키텍처 제약, lint
-  | "eval"          // eval 데이터셋
-  | "conventions"   // 코딩 컨벤션
-  | "build"         // 빌드/테스트 명령어
-  | "docs";         // 문서
+  | "constraints"   // architectural constraints, lint
+  | "eval"          // eval datasets
+  | "conventions"   // coding conventions
+  | "build"         // build/test commands
+  | "docs";         // documentation
 
 export interface AuditReport {
   projectPath: string;
@@ -48,8 +48,8 @@ export interface Recommendation {
   description: string;
   priority: "high" | "medium" | "low";
   effort: "small" | "medium" | "large";
-  template?: string;       // 자동 생성 가능한 템플릿 이름
-  targetPath?: string;     // 생성할 파일 경로
+  template?: string;       // name of an auto-generatable template
+  targetPath?: string;     // file path to generate
 }
 
 // ─── Preset ───

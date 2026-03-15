@@ -31,8 +31,8 @@ describe("Initializer", () => {
     const content = readFileSync(join(TMP_DIR, "AGENTS.md"), "utf-8");
 
     expect(content).toContain("TODO:");
-    expect(content).toContain("빌드");
-    expect(content).toContain("실수");
+    expect(content).toContain("Build");
+    expect(content).toContain("Pitfalls");
   });
 
   it("이미 있는 파일은 건너뜀", () => {

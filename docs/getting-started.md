@@ -1,12 +1,12 @@
-# 시작하기
+# Getting Started
 
-Harness Builder MCP는 Claude Code에서 테스트 하네스를 자동 생성하는 MCP 서버입니다.
+Harness Builder MCP is an MCP server that automatically generates test harnesses in Claude Code.
 
-## 빠른 시작
+## Quick Start
 
-### 1. Claude Code에 MCP 서버 등록
+### 1. Register the MCP Server in Claude Code
 
-설정 파일을 열고 MCP 서버를 추가합니다:
+Open the configuration file and add the MCP server:
 
 ```bash
 # macOS/Linux
@@ -24,62 +24,62 @@ Harness Builder MCP는 Claude Code에서 테스트 하네스를 자동 생성하
 }
 ```
 
-### 2. Claude Code 재시작
+### 2. Restart Claude Code
 
-### 3. 연결 확인
+### 3. Verify the Connection
 
-Claude Code에서 `/mcp` 입력 → `harness-builder: connected` 확인
+In Claude Code, type `/mcp` and confirm `harness-builder: connected`
 
-### 4. 사용
+### 4. Start Using It
 
 ```
-"Jest 기반의 TypeScript 하네스를 'my-project'로 초기화해줘"
+"Initialize a Jest-based TypeScript harness named 'my-project'"
 ```
 
-## 5가지 핵심 도구
+## 5 Core Tools
 
-| 도구 | 설명 |
-|------|------|
-| `init_harness` | 테스트 프레임워크 설정 초기화 |
-| `generate_test_case` | 개별 테스트 케이스 생성 |
-| `generate_integration_suite` | 여러 테스트를 통합 스위트로 |
-| `generate_performance_harness` | 성능 테스트 (응답 시간 측정) |
-| `get_harness_config` | 현재 설정 조회 |
+| Tool | Description |
+|------|-------------|
+| `init_harness` | Initialize test framework configuration |
+| `generate_test_case` | Generate individual test cases |
+| `generate_integration_suite` | Combine multiple tests into an integration suite |
+| `generate_performance_harness` | Performance tests (response time measurement) |
+| `get_harness_config` | View current configuration |
 
-## 지원 프레임워크
+## Supported Frameworks
 
-- **Jest** (권장) - TypeScript/JavaScript
-- **Mocha** - 전통적 Node.js
-- **Vitest** - Vite 프로젝트
-- **Custom** - 사용자 정의
+- **Jest** (recommended) - TypeScript/JavaScript
+- **Mocha** - Traditional Node.js
+- **Vitest** - Vite projects
+- **Custom** - User-defined
 
-## 지원 언어
+## Supported Languages
 
 - TypeScript, JavaScript, Python
 
-## 사용 예제
+## Usage Examples
 
-### API 테스트
-
-```
-"Express API의 /api/users 엔드포인트를 테스트하는 하네스를 만들어줘.
-정상 조회, 없는 데이터, 에러 처리를 포함해줘"
-```
-
-### DB 통합 테스트
+### API Testing
 
 ```
-"PostgreSQL 사용자 테이블의 CRUD 작업을 테스트하는 통합 하네스를 만들어줘"
+"Create a harness to test the /api/users endpoint of an Express API.
+Include normal retrieval, missing data, and error handling."
 ```
 
-### 성능 테스트
+### DB Integration Testing
 
 ```
-"API 응답이 100ms 이내인지 확인하는 성능 테스트를 만들어줘"
+"Create an integration harness to test CRUD operations on a PostgreSQL users table."
 ```
 
-## 다음 단계
+### Performance Testing
 
-- 상세 사용법 → [usage.md](usage.md)
-- 개발/기여 → [architecture.md](architecture.md)
-- 설치/배포 → [setup.md](setup.md)
+```
+"Create a performance test to verify API responses are within 100ms."
+```
+
+## Next Steps
+
+- Detailed usage guide → [usage.md](usage.md)
+- Development/contributing → [architecture.md](architecture.md)
+- Installation/deployment → [setup.md](setup.md)

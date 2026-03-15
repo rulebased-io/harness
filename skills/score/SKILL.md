@@ -1,23 +1,23 @@
 ---
 name: harness-score
-description: 프로젝트의 하네스 구축 정도를 카테고리별로 점수 매겨서 리포트합니다
+description: Scores your project's harness engineering setup by category and generates a report
 license: MIT
 metadata:
   author: rulebased-io
   version: "1.0.0"
 ---
 
-프로젝트의 하네스 엔지니어링 구축 정도를 카테고리별로 점수를 매겨서 리포트합니다.
+Scores your project's harness engineering setup by category and generates a report.
 
-audit가 pass/fail 체크리스트라면, score는 **각 카테고리별 점수와 전체 등급**을 보여줍니다.
+While audit provides a pass/fail checklist, score shows **per-category scores and an overall grade**.
 
-## 실행
+## Execution
 
 ```bash
 npx rulebased-harness score
 ```
 
-## 출력 예시
+## Example Output
 
 ```
 ## Harness Score Report
@@ -26,25 +26,25 @@ npx rulebased-harness score
 
 ### Context Engineering  [####################]  100/100  (5/5)
 
-- [PASS] AGENTS.md 존재
-- [PASS] AGENTS.md에 빌드 명령어 포함
-- [PASS] AGENTS.md에 아키텍처 설명 포함
-- [PASS] AGENTS.md에 흔한 실수 방지 목록
-- [PASS] CLAUDE.md 존재
+- [PASS] AGENTS.md exists
+- [PASS] AGENTS.md includes build commands
+- [PASS] AGENTS.md includes architecture description
+- [PASS] AGENTS.md includes common pitfalls list
+- [PASS] CLAUDE.md exists
 
 ### Constraints  [--------------------]  0/100  (0/2)
 
-- [FAIL] 린터/포맷터 설정 존재
-  -> ESLint, Prettier, Biome 등의 설정 파일을 추가하세요.
-- [FAIL] Pre-commit 훅 설정
-  -> Husky, Lefthook, 또는 pre-commit을 설정하세요.
+- [FAIL] Linter/formatter configuration exists
+  -> Add a configuration file for ESLint, Prettier, Biome, etc.
+- [FAIL] Pre-commit hook setup
+  -> Set up Husky, Lefthook, or pre-commit.
 
 ### Build & Test  [#############-------]  67/100  (2/3)
 
-- [PASS] 테스트 스크립트 정의
-- [PASS] 빌드 스크립트 정의
-- [FAIL] CI/CD 설정 존재
-  -> .github/workflows/ 에 CI 워크플로우를 추가하세요.
+- [PASS] Test script defined
+- [PASS] Build script defined
+- [FAIL] CI/CD configuration exists
+  -> Add a CI workflow in .github/workflows/.
 ```
 
 $ARGUMENTS

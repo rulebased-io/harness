@@ -55,7 +55,7 @@ describe("Recommender", () => {
   describe("formatRecommendations", () => {
     it("추천 없으면 완료 메시지", () => {
       const text = formatRecommendations([]);
-      expect(text).toContain("추천 사항이 없습니다");
+      expect(text).toContain("No recommendations");
     });
 
     it("추천 있으면 목록 포맷", () => {
