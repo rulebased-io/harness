@@ -56,7 +56,16 @@ npm run audit        # 이 프로젝트의 하네스 점검
 2. todo가 없으면 `specs/backlog/`의 항목을 우선순위 순으로 제안한다
 3. 백로그도 없으면 `pnpm run audit:harness`로 프로젝트 하네스 점검 후 개선 항목을 제안한다
 
-### 2. 프로젝트 구조
+### 2. README 이중 언어 동기화 (자동 적용)
+
+**README.md (영어)와 README.ko.md (한국어)는 항상 동기화 상태를 유지한다.**
+
+README.md를 수정하면 반드시 README.ko.md도 동일한 내용으로 업데이트한다.
+- 새 스킬/기능이 추가되면 양쪽 모두에 반영
+- 구조, 섹션 순서, 코드 블록은 동일하게 유지
+- 영어가 기본, 한국어는 번역본
+
+### 3. 프로젝트 구조
 
 ```
 ├── .claude-plugin/plugin.json   # 플러그인 매니페스트
@@ -75,14 +84,14 @@ npm run audit        # 이 프로젝트의 하네스 점검
 └── docs/                        # 문서 (docs/index.md로 라우팅)
 ```
 
-### 3. 코딩 규칙
+### 4. 코딩 규칙
 
 - `strict: true`, any 금지
 - ESM: import 경로에 `.js`, `import type` 사용
 - 외부 runtime 의존성 없음 (Node.js 내장 모듈만)
 - 테스트: `tests/` 디렉토리, fixture 기반
 
-### 4. 흔한 실수
+### 5. 흔한 실수
 
 1. ESM에서 `__dirname` 불가 → `fileURLToPath(import.meta.url)` 사용
 2. ts-jest에서 `import.meta.dirname` 미지원 → `fileURLToPath` 패턴 사용

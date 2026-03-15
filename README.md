@@ -4,6 +4,8 @@ A harness-building tool for AI agents. Assess how well your project's harness en
 
 > **Harness Engineering** = A system design approach that constrains agent behavior (Constraints), provides context (Context), and evaluates results (Eval). See [OpenAI Harness Engineering](https://openai.com/index/harness-engineering/).
 
+[한국어](README.ko.md)
+
 ## Installation
 
 ### skills.sh (Recommended)
@@ -31,6 +33,8 @@ npx skills add rulebased-io/harness --skill harness-audit
 npx rulebased-harness audit
 npx rulebased-harness init
 npx rulebased-harness recommend
+npx rulebased-harness score
+npx rulebased-harness eval-log
 ```
 
 ## Skills
@@ -41,13 +45,7 @@ Audits how well your project's harness is set up. Checks 17 items and assigns a 
 
 ```bash
 npx rulebased-harness audit
-
-# Example output:
-# Score: 77/100 (B)
-# Passed: 12/17 | Critical: 3/3
-#
-# [FAIL] No linter/formatter configuration found
-#   Fix: Add a configuration file for ESLint, Prettier, Biome, etc.
+npx rulebased-harness audit --json
 ```
 
 **Checklist items:**
@@ -62,25 +60,51 @@ npx rulebased-harness audit
 | Conventions | .editorconfig, TypeScript strict |
 | Docs | README.md, .gitignore |
 
+### harness-score
+
+Per-category detailed score report. Shows how well each harness area is implemented.
+
+```bash
+npx rulebased-harness score
+
+# Example output:
+# ## Harness Score Report
+#
+# [################----]  **81/100 (B)**
+#
+# ### Context Engineering  [####################]  100/100  (5/5)
+# - [PASS] AGENTS.md exists
+# - [PASS] AGENTS.md includes build commands
+# ...
+#
+# ### Constraints  [--------------------]  0/100  (0/2)
+# - [FAIL] Linter/formatter configuration exists
+#   -> Add a configuration file for ESLint, Prettier, Biome, or similar.
+```
+
 ### harness-init
 
 Initializes the harness structure for your project.
 
 ```bash
 npx rulebased-harness init
-
-# Files created:
-# + AGENTS.md        (Agent rules - includes TODO markers)
-# + CLAUDE.md        (References AGENTS.md)
-# + specs/todo/      (Spec workflow)
-# + specs/done/
-# + specs/backlog/
-# + tasks/todo/      (Task workflow)
-# + tasks/done/
-# + .gitignore       (If not already present)
+npx rulebased-harness init --preset minimal
+npx rulebased-harness init --force
 ```
 
-Existing files are skipped. Use `--force` to overwrite them.
+Creates: `AGENTS.md`, `CLAUDE.md`, `.harness.json`, `specs/`, `tasks/`, `.gitignore`
+
+**Presets:**
+- `standard` (default) — all checks enabled
+- `minimal` — essential checks only (AGENTS.md + build commands)
+
+Customize via `.harness.json`:
+```json
+{
+  "preset": "standard",
+  "checks": { "disable": ["eval-dir", "cst-precommit"] }
+}
+```
 
 ### harness-recommend
 
@@ -88,18 +112,26 @@ Recommends missing harness elements and can auto-generate them.
 
 ```bash
 npx rulebased-harness recommend
-
-# Example output:
-# ## Harness Recommendations (5 items)
-#
-# ### High Priority
-# - Generate AGENTS.md [auto-fix] (medium)
-# - Add test script (small)
-#
-# ### Medium Priority
-# - Add linter/formatter configuration (small)
-# - Write README.md (small)
+npx rulebased-harness recommend --json
 ```
+
+### harness-eval-log
+
+Evaluates a Claude Code conversation transcript against harness compliance.
+
+```bash
+npx rulebased-harness eval-log
+npx rulebased-harness eval-log --file /path/to/transcript.jsonl
+```
+
+**Evaluation criteria:**
+- Human turn count (fewer = more autonomous)
+- Autonomy ratio (agent turns / total turns)
+- Build/test execution (Bash tool usage)
+- Tool diversity (number of unique tools used)
+- Session duration
+
+**Auto-trigger:** Runs automatically via Stop hook when a session with 10+ agent turns ends.
 
 ## Project Structure
 
@@ -107,14 +139,16 @@ npx rulebased-harness recommend
 @rulebased/harness (pnpm monorepo)
 ├── skills/                      # Skills (skills.sh + Claude Code)
 │   ├── audit/SKILL.md
+│   ├── score/SKILL.md
 │   ├── init/SKILL.md
-│   └── recommend/SKILL.md
+│   ├── recommend/SKILL.md
+│   └── eval-log/SKILL.md
 ├── packages/
-│   ├── core/                    # @rulebased/core - Core logic
-│   ├── cli/                     # @rulebased/cli - CLI
-│   └── plugin-claude/           # @rulebased/plugin-claude - Claude Code plugin
-├── specs/                       # Spec workflow
-├── tasks/                       # Task workflow
+│   ├── core/                    # @rulebased/core - Auditor, recommender, initializer, transcript parser
+│   ├── cli/                     # @rulebased/cli - CLI entry point
+│   └── plugin-claude/           # @rulebased/plugin-claude - Claude Code plugin (hooks, agents)
+├── specs/                       # Spec workflow (todo/done/backlog)
+├── tasks/                       # Task workflow (todo/done)
 └── docs/                        # Documentation
 ```
 
@@ -135,6 +169,14 @@ pnpm test          # 26 tests
 | Nice-to-have | 1 | Workflow directories, eval, pre-commit |
 
 Grades: A (90+), B (75+), C (60+), D (40+), F
+
+## Roadmap
+
+- [ ] Onboarding wizard — interactive setup by project type (frontend, backend, fullstack)
+- [ ] Built-in templates — per-project-type AGENTS.md, hooks, and audit presets
+- [ ] Harness import — bring harness setup from another project, diff and apply
+- [ ] Multi-agent plugins — Codex, Cursor support
+- [ ] npm publish — `@rulebased/core` and `@rulebased/cli`
 
 ## License
 
