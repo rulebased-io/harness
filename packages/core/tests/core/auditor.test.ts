@@ -85,7 +85,9 @@ describe("Auditor", () => {
 
     it("summary에 byCategory 포함", () => {
       expect(report.summary.byCategory.context).toBeDefined();
-      expect(report.summary.byCategory.build).toBeDefined();
+      expect(report.summary.byCategory.bootstrap).toBeDefined();
+      expect(report.summary.byCategory.constraints).toBeDefined();
+      expect(report.summary.byCategory.safety).toBeDefined();
     });
 
     it("timestamp 포함", () => {

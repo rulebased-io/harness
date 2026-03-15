@@ -1,13 +1,18 @@
 # AGENTS.md
 
-## 빌드 & 테스트
+## Build & Test
 ```bash
 npm run build
 npm test
+npm run lint
 ```
 
-## 프로젝트 구조
-src/ 디렉토리에 핵심 코드가 있습니다.
+## Architecture
+src/ directory structure and layers. See docs/ for details.
 
-## 흔한 실수 방지
-1. import 경로에 .js 확장자를 빼먹지 마세요
+## Common Pitfalls
+1. Don't forget .js extension in import paths
+2. Avoid committing .env files
+
+## Security
+No credentials in source code. See docs/SECURITY.md for security policies.

@@ -1,5 +1,8 @@
 /**
  * Core type definitions for the harness system
+ *
+ * Categories based on OpenAI Codex Harness Engineering:
+ * https://openai.com/index/unlocking-the-codex-harness/
  */
 
 // ─── Audit ───
@@ -16,13 +19,14 @@ export interface AuditCheck {
 }
 
 export type AuditCategory =
-  | "context"       // AGENTS.md, CLAUDE.md
-  | "workflow"      // specs/, tasks/
-  | "constraints"   // architectural constraints, lint
-  | "eval"          // eval datasets
-  | "conventions"   // coding conventions
-  | "build"         // build/test commands
-  | "docs";         // documentation
+  | "context"         // AGENTS.md, ARCHITECTURE.md, docs/, progressive disclosure
+  | "bootstrap"       // One-command setup, reproducible environment
+  | "constraints"     // Linter, formatter, pre-commit, architectural enforcement
+  | "eval"            // CI pipeline, tests, coverage, regression
+  | "entropy"         // Tech debt tracking, doc freshness, pattern enforcement
+  | "safety"          // Secrets, .gitignore, security docs
+  | "knowledge"       // ADRs, decision records, in-repo knowledge
+  | "workflow";       // specs/, tasks/ directories
 
 export interface AuditReport {
   projectPath: string;
@@ -48,8 +52,8 @@ export interface Recommendation {
   description: string;
   priority: "high" | "medium" | "low";
   effort: "small" | "medium" | "large";
-  template?: string;       // name of an auto-generatable template
-  targetPath?: string;     // file path to generate
+  template?: string;
+  targetPath?: string;
 }
 
 // ─── Preset ───

@@ -11,12 +11,14 @@ const MINIMAL_CONFIG: HarnessConfig = {
   preset: "minimal",
   checks: {
     disable: [
-      "wf-specs-dir",
-      "wf-tasks-dir",
-      "cst-precommit",
-      "eval-dir",
-      "conv-editorconfig",
-      "build-ci",
+      "ctx-agents-concise", "ctx-agents-security", "ctx-agents-links-docs",
+      "ctx-sub-agents", "ctx-claude-exists",
+      "cst-precommit", "cst-arch-enforcement",
+      "eval-ci-lint", "eval-dataset",
+      "ent-tech-debt", "ent-docs-in-repo",
+      "saf-security-doc",
+      "know-adrs",
+      "wf-specs-dir", "wf-tasks-dir",
     ],
   },
 };

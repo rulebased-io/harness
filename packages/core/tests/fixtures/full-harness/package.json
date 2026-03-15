@@ -1,1 +1,1 @@
-{"name":"test","scripts":{"build":"tsc","test":"jest"}}
+{"name":"test","scripts":{"build":"tsc","test":"jest","lint":"eslint ."}}
