@@ -1,0 +1,21 @@
+{
+  "name": "@rulebased/cli",
+  "version": "1.0.0",
+  "description": "Harness CLI - npx rulebased-harness audit/init/recommend",
+  "type": "module",
+  "bin": {
+    "rulebased-harness": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@rulebased/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.5.0"
+  },
+  "files": ["dist/"],
+  "license": "MIT"
+}

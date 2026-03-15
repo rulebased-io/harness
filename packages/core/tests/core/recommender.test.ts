@@ -1,7 +1,7 @@
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { audit } from "../../src/core/auditor.js";
-import { recommend, formatRecommendations } from "../../src/core/recommender.js";
+import { audit } from "../../src/auditor.js";
+import { recommend, formatRecommendations } from "../../src/recommender.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const FIXTURES = join(__dirname, "../fixtures");

@@ -4,3 +4,4 @@ evals/results/
 coverage/
 *.tsbuildinfo
 .DS_Store
+tests/tmp-*

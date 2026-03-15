@@ -9,9 +9,9 @@
  */
 
 import { resolve } from "node:path";
-import { audit, formatReport } from "../core/auditor.js";
-import { recommend, formatRecommendations } from "../core/recommender.js";
-import { initHarness } from "../core/initializer.js";
+import { audit, formatReport } from "@rulebased/core/auditor";
+import { recommend, formatRecommendations } from "@rulebased/core/recommender";
+import { initHarness } from "@rulebased/core/initializer";
 
 const args = process.argv.slice(2);
 const command = args[0];

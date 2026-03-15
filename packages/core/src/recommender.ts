@@ -5,7 +5,7 @@
  * 추천 항목에는 자동 생성 가능한 템플릿이 포함됩니다.
  */
 
-import type { AuditReport, Recommendation } from "../types.js";
+import type { AuditReport, Recommendation } from "./types.js";
 
 /** audit 리포트에서 추천 항목 도출 */
 export function recommend(report: AuditReport): Recommendation[] {

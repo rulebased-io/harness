@@ -9,7 +9,7 @@
 
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
-import type { AuditCheck, AuditCategory, AuditReport } from "../types.js";
+import type { AuditCheck, AuditCategory, AuditReport } from "./types.js";
 
 /** 프로젝트 경로에 대해 하네스 감사 실행 */
 export function audit(projectPath: string): AuditReport {

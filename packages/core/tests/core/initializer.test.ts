@@ -1,7 +1,7 @@
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { mkdirSync, rmSync, existsSync, readFileSync, writeFileSync } from "node:fs";
-import { initHarness } from "../../src/core/initializer.js";
+import { initHarness } from "../../src/initializer.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const TMP_DIR = join(__dirname, "../tmp-init-test");
