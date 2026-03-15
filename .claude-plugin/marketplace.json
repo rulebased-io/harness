@@ -1,0 +1,11 @@
+{
+  "name": "rulebased-io-harness",
+  "description": "Harness engineering tools for AI agents by rulebased.io",
+  "plugins": [
+    {
+      "name": "rulebased",
+      "description": "Harness audit, score, init, recommend, and eval-log for AI agent projects",
+      "source": "./packages/plugin-claude"
+    }
+  ]
+}
