@@ -112,7 +112,7 @@ patch 단위(x.y.Z)로 올리고, 기능 추가 시 minor(x.Y.0).
 - `references/` 디렉토리에 **링크와 요약만** 저장한다 (업체명, 제목, 1-2줄 요약, URL)
 - 원본 블로그/문서의 내용을 그대로 옮기지 않는다 (저작권·라이선스 준수)
 - 외부 자료를 **2차 가공**한 데이터(비교표, 분석, 체크리스트 도출 등)는 이 레포에 보관할 수 있다
-- 새로운 레퍼런스를 발견하면 `references/harness-engineering.md`에 추가한다
+- 새로운 레퍼런스를 발견하면 `references/harness-engineering/`에 업체별 파일로 추가한다
 
 ### 7. .md 문서 작성 시 frontmatter 활용 (자동 적용)
 
@@ -148,4 +148,4 @@ created: YYYY-MM-DD
 | 문서 | `docs/index.md` | 시작하기, 아키텍처, 설치, 사용법 |
 | 스킬 | `skills/` | init, audit, recommend |
 | Audit 체크리스트 | `rulebased-harness/reference/checklist.md` | 17개 감사 항목 상세 |
-| 외부 레퍼런스 | `references/harness-engineering.md` | 업체별 공식 문서/블로그 링크 모음 |
+| 외부 레퍼런스 | `references/harness-engineering/` | 업체별 공식 문서/블로그 링크 모음 (14개 파일) |
