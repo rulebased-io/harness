@@ -26,7 +26,7 @@ created: 2026-03-18
 - **What**: 세션 로그 평가 설정 존재 여부
 - **Why**: 에이전트 세션의 자율성, 도구 다양성, 작업 완성도를 정량 측정. 하네스 개선의 피드백 루프.
 - **How to Check**: hooks에 eval-log 관련 설정, 또는 eval-log 스크립트 존재
-- **Fix**: Stop 훅에 eval-log 실행 추가 (예: `npx rulebased-harness eval-log`)
+- **Fix**: Stop 훅에 eval-log 평가 실행 추가
 - **Reference**: [Manus — Context Engineering for AI Agents](https://manus.im/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus)
 
 ---

@@ -15,11 +15,13 @@ Based on the 36-item audit criteria in `${CLAUDE_PLUGIN_PATH}/reference/index.md
 
 ### Critical (must create)
 - `AGENTS.md` — Agent rules with: build commands, architecture, pitfalls, conventions, boundaries
+  (See `${CLAUDE_PLUGIN_PATH}/reference/guide-context-engineering.md` for recommended structure)
 - `CLAUDE.md` — References AGENTS.md
 - Test script in `package.json` (if missing)
 
 ### Important (should create)
-- `.gitignore` with secret exclusion patterns (`.env*`, `*.key`, `*.pem`)
+- `.gitignore` with secret exclusion patterns
+  (See `${CLAUDE_PLUGIN_PATH}/reference/guide-security.md` for recommended patterns)
 - `README.md` (if missing)
 
 ### Workflow structure
@@ -30,9 +32,9 @@ Based on the 36-item audit criteria in `${CLAUDE_PLUGIN_PATH}/reference/index.md
 
 Existing files are skipped. AGENTS.md contains TODO markers to fill in.
 
-CLI alternative:
-```bash
-npx rulebased-harness init
-```
+Read the guide files for concrete examples of each file's recommended content:
+- AGENTS.md structure → `guide-context-engineering.md`
+- .gitignore patterns → `guide-security.md`
+- Linter/formatter config → `guide-constraints.md`
 
 $ARGUMENTS

@@ -13,7 +13,7 @@ Audits the current project's harness state and recommends missing elements.
 
 1. Read `${CLAUDE_PLUGIN_PATH}/reference/index.md` for the 36-item criteria
 2. Check each item against the current project (same as audit)
-3. For failed items, read the corresponding `guide-*.md` for the improvement strategy
+3. For failed items, read the corresponding `guide-*.md` for the improvement strategy and code examples
 4. Generate a recommendation list sorted by priority (critical → important → nice-to-have)
 5. Items tagged [auto-fix] can be auto-generated with user consent
 
@@ -27,11 +27,6 @@ Audits the current project's harness state and recommends missing elements.
 
 After presenting the recommendation list, ask the user which items to generate.
 Only generate files for items the user has approved.
-
-CLI alternative:
-```bash
-npx rulebased-harness recommend
-npx rulebased-harness recommend --json
-```
+Use the code examples from guide files as templates for auto-generated content.
 
 $ARGUMENTS

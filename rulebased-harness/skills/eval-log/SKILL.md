@@ -27,27 +27,11 @@ Number of unique tools used. More diverse tool usage indicates thorough work (Re
 ### Session Duration
 Reasonable session length — not too short (incomplete), not excessively long.
 
-## Execution
+## How to Evaluate
 
-```bash
-npx rulebased-harness eval-log
-npx rulebased-harness eval-log --file /path/to/transcript.jsonl
-npx rulebased-harness eval-log --json
-```
-
-## Hook Automation
-
-Add to your hooks to auto-evaluate after every session:
-
-```json
-{
-  "hooks": {
-    "Stop": [{
-      "type": "command",
-      "command": "npx rulebased-harness eval-log"
-    }]
-  }
-}
-```
+1. Find the session log file at `~/.claude/projects/<project-path>/<session-id>.jsonl`
+2. Parse the JSONL and count human vs assistant turns
+3. Count unique tools used and Bash invocations
+4. Calculate scores per criterion and an overall grade
 
 $ARGUMENTS
