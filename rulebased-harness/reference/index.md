@@ -26,13 +26,17 @@ index.md (이 파일)  →  guide-*.md (평가 가이드)  →  *.md (항목 정
 
 ### 가중치
 
-| Severity | Weight | 의미 | 해당 항목 수 | 소계 |
-|----------|--------|------|-------------|------|
-| Critical | 3 | 없으면 에이전트가 제대로 동작할 수 없음 | 4 | 12 |
-| Important | 2 | 품질과 일관성에 직접 영향 | 13 | 26 |
-| Nice-to-have | 1 | 성숙도를 높이는 보조 항목 | 19 | 19 |
+각 항목의 가중치(W)는 Summary Table에 숫자로 정의되어 있다. 가중치 범위는 1~3:
+
+| W | 의미 | 해당 항목 수 | 소계 |
+|---|------|-------------|------|
+| 3 | 없으면 에이전트가 제대로 동작할 수 없음 | 4 | 12 |
+| 2 | 품질과 일관성에 직접 영향 | 13 | 26 |
+| 1 | 성숙도를 높이는 보조 항목 | 19 | 19 |
 
 **만점**: 57점
+
+가중치의 유일한 정의 출처는 이 파일의 Summary Table이다. guide-*.md와 *.md(criteria)는 가중치를 중복 기재하지 않는다.
 
 ### 3단계 평가
 
@@ -84,45 +88,48 @@ score = (pass_weight_합 + hollow_weight_합 × 0.5) / 전체_weight_합 × 100
 | 7 | Security | 3 | 6 | [guide-security.md](guide-security.md) |
 | 8 | Agent Autonomy | 3 | 4 | [guide-agent-autonomy.md](guide-agent-autonomy.md) |
 
-## Summary Table
+## Summary Table (가중치 SSOT)
 
-`H` 열: hollow 상태 적용 가능 여부. ✓ 항목은 "구조는 있으나 비어 있음"을 감지하여 50% 점수를 부여한다.
+이 테이블이 각 항목의 가중치를 정의하는 **유일한 출처**이다. guide-*.md와 *.md(criteria)는 가중치를 중복 기재하지 않고, 이 테이블을 참조한다.
 
-| ID | Item | Severity | Category | H | Hollow 판정 기준 |
-|----|------|----------|----------|---|-------------------|
-| ctx-agents-exists | AGENTS.md exists | critical | Context Engineering | ✓ | 파일 존재하나 TODO만 있거나 10줄 미만 |
-| ctx-agents-build | Build commands in AGENTS.md | critical | Context Engineering | ✓ | 섹션 존재하나 실제 커맨드 없음 |
-| ctx-agents-arch | Architecture description | important | Context Engineering | ✓ | 섹션 존재하나 디렉토리 트리/설명 없음 |
-| ctx-agents-pitfalls | Common pitfalls | important | Context Engineering | ✓ | 섹션 존재하나 항목 0개 |
-| ctx-agents-conventions | Coding conventions | important | Context Engineering | ✓ | 섹션 존재하나 구체적 규칙/예시 없음 |
-| ctx-agents-persona | Agent persona/role | nice-to-have | Context Engineering | | |
-| ctx-agents-boundaries | Boundaries/restrictions | important | Context Engineering | ✓ | 섹션 존재하나 항목 0개 |
-| ctx-claude-exists | CLAUDE.md exists | important | Context Engineering | ✓ | 파일 존재하나 3줄 미만 또는 빈 내용 |
-| wf-specs-dir | specs directory | nice-to-have | Workflow | ✓ | 디렉토리 존재하나 .md 파일 0개 |
-| wf-tasks-dir | tasks directory | nice-to-have | Workflow | ✓ | 디렉토리 존재하나 .md 파일 0개 |
-| wf-backlog | backlog directory | nice-to-have | Workflow | ✓ | 디렉토리 존재하나 .md 파일 0개 |
-| wf-spec-template | spec template | nice-to-have | Workflow | | |
-| wf-done-archive | done archive structure | nice-to-have | Workflow | ✓ | 디렉토리 존재하나 .md 파일 0개 |
-| cst-lint | Linter/formatter | important | Constraints | | |
-| cst-precommit | Pre-commit hook | nice-to-have | Constraints | | |
-| cst-type-safety | Type safety (strict mode) | important | Constraints | | |
-| cst-editorconfig | .editorconfig | nice-to-have | Constraints | | |
-| cst-commit-convention | Commit message convention | nice-to-have | Constraints | | |
-| eval-dir | Eval dataset | nice-to-have | Eval | ✓ | 디렉토리 존재하나 eval 파일 0개 |
-| eval-log-config | Session log evaluation | nice-to-have | Eval | | |
-| eval-autonomy-metric | Autonomy metric defined | nice-to-have | Eval | | |
-| eval-quality-gate | Quality gate (CI pass) | important | Eval | | |
-| build-test-script | Test script | critical | Build & Test | | |
-| build-build-script | Build script | important | Build & Test | | |
-| build-ci | CI/CD configuration | nice-to-have | Build & Test | | |
-| build-lockfile | Package lock file | nice-to-have | Build & Test | | |
-| docs-readme | README.md | important | Documentation | ✓ | 파일 존재하나 5줄 미만 또는 제목만 |
-| docs-gitignore | .gitignore | important | Documentation | | |
-| docs-license | LICENSE file | nice-to-have | Documentation | | |
-| docs-changelog | CHANGELOG or release notes | nice-to-have | Documentation | ✓ | 파일 존재하나 엔트리 0개 |
-| sec-no-secrets | Secrets excluded from repo | critical | Security | | |
-| sec-gitignore-patterns | Sensitive file patterns blocked | important | Security | | |
-| sec-dependency-audit | Dependency audit configured | nice-to-have | Security | | |
-| auto-context-completeness | Context completeness | important | Agent Autonomy | | |
-| auto-tool-config | MCP/Agent Skills configured | nice-to-have | Agent Autonomy | | |
-| auto-memory-system | Persistent memory system | nice-to-have | Agent Autonomy | | |
+`W`: 가중치 (점수 계산에 사용되는 숫자)
+`H`: hollow 적용 여부. ✓ 항목은 "구조는 있으나 비어 있음"을 감지하여 W × 50% 점수를 부여한다.
+
+| ID | Item | W | Category | H | Hollow 판정 기준 |
+|----|------|---|----------|---|-------------------|
+| ctx-agents-exists | AGENTS.md exists | 3 | Context Engineering | ✓ | 파일 존재하나 TODO만 있거나 10줄 미만 |
+| ctx-agents-build | Build commands in AGENTS.md | 3 | Context Engineering | ✓ | 섹션 존재하나 실제 커맨드 없음 |
+| ctx-agents-arch | Architecture description | 2 | Context Engineering | ✓ | 섹션 존재하나 디렉토리 트리/설명 없음 |
+| ctx-agents-pitfalls | Common pitfalls | 2 | Context Engineering | ✓ | 섹션 존재하나 항목 0개 |
+| ctx-agents-conventions | Coding conventions | 2 | Context Engineering | ✓ | 섹션 존재하나 구체적 규칙/예시 없음 |
+| ctx-agents-persona | Agent persona/role | 1 | Context Engineering | | |
+| ctx-agents-boundaries | Boundaries/restrictions | 2 | Context Engineering | ✓ | 섹션 존재하나 항목 0개 |
+| ctx-claude-exists | CLAUDE.md exists | 2 | Context Engineering | ✓ | 파일 존재하나 3줄 미만 또는 빈 내용 |
+| wf-specs-dir | specs directory | 1 | Workflow | ✓ | 디렉토리 존재하나 .md 파일 0개 |
+| wf-tasks-dir | tasks directory | 1 | Workflow | ✓ | 디렉토리 존재하나 .md 파일 0개 |
+| wf-backlog | backlog directory | 1 | Workflow | ✓ | 디렉토리 존재하나 .md 파일 0개 |
+| wf-spec-template | spec template | 1 | Workflow | | |
+| wf-done-archive | done archive structure | 1 | Workflow | ✓ | 디렉토리 존재하나 .md 파일 0개 |
+| cst-lint | Linter/formatter | 2 | Constraints | | |
+| cst-precommit | Pre-commit hook | 1 | Constraints | | |
+| cst-type-safety | Type safety (strict mode) | 2 | Constraints | | |
+| cst-editorconfig | .editorconfig | 1 | Constraints | | |
+| cst-commit-convention | Commit message convention | 1 | Constraints | | |
+| eval-dir | Eval dataset | 1 | Eval | ✓ | 디렉토리 존재하나 eval 파일 0개 |
+| eval-log-config | Session log evaluation | 1 | Eval | | |
+| eval-autonomy-metric | Autonomy metric defined | 1 | Eval | | |
+| eval-quality-gate | Quality gate (CI pass) | 2 | Eval | | |
+| build-test-script | Test script | 3 | Build & Test | | |
+| build-build-script | Build script | 2 | Build & Test | | |
+| build-ci | CI/CD configuration | 1 | Build & Test | | |
+| build-lockfile | Package lock file | 1 | Build & Test | | |
+| docs-readme | README.md | 2 | Documentation | ✓ | 파일 존재하나 5줄 미만 또는 제목만 |
+| docs-gitignore | .gitignore | 2 | Documentation | | |
+| docs-license | LICENSE file | 1 | Documentation | | |
+| docs-changelog | CHANGELOG or release notes | 1 | Documentation | ✓ | 파일 존재하나 엔트리 0개 |
+| sec-no-secrets | Secrets excluded from repo | 3 | Security | | |
+| sec-gitignore-patterns | Sensitive file patterns blocked | 2 | Security | | |
+| sec-dependency-audit | Dependency audit configured | 1 | Security | | |
+| auto-context-completeness | Context completeness | 2 | Agent Autonomy | | |
+| auto-tool-config | MCP/Agent Skills configured | 1 | Agent Autonomy | | |
+| auto-memory-system | Persistent memory system | 1 | Agent Autonomy | | |

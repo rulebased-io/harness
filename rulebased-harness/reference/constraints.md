@@ -12,7 +12,7 @@ created: 2026-03-18
 ---
 
 ### cst-lint
-- **Severity**: important (weight 2)
+- **Weight**: → index.md 참조
 - **What**: 린터/포매터 설정 존재 여부
 - **Why**: 에이전트가 생성한 코드가 프로젝트 스타일과 일치하는지 자동 검증. Stripe는 CI 통과가 PR 머지 조건.
 - **How to Check**: `.eslintrc*`, `eslint.config.*`, `biome.json`, `.prettierrc*`, `deno.json` 등 존재
@@ -22,7 +22,7 @@ created: 2026-03-18
 ---
 
 ### cst-precommit
-- **Severity**: nice-to-have (weight 1)
+- **Weight**: → index.md 참조
 - **What**: Pre-commit 훅 설정 존재 여부
 - **Why**: 커밋 전 린트/테스트를 강제하여 에이전트의 실수가 레포에 들어가는 것을 방지.
 - **How to Check**: `.husky/`, `lefthook.yml`, `.pre-commit-config.yaml` 등 존재
@@ -32,7 +32,7 @@ created: 2026-03-18
 ---
 
 ### cst-type-safety
-- **Severity**: important (weight 2)
+- **Weight**: → index.md 참조
 - **What**: 타입 안전성 설정 (TypeScript strict 또는 동등)
 - **Why**: strict 모드는 에이전트가 생성한 코드의 타입 오류를 컴파일 타임에 잡아줌. 런타임 버그 감소.
 - **How to Check**: `tsconfig.json`에 `"strict": true`, 또는 `mypy.ini`, `pyproject.toml`의 타입 검사 설정
@@ -42,7 +42,7 @@ created: 2026-03-18
 ---
 
 ### cst-editorconfig
-- **Severity**: nice-to-have (weight 1)
+- **Weight**: → index.md 참조
 - **What**: .editorconfig 파일 존재 여부
 - **Why**: 에디터/에이전트 간 들여쓰기, 줄바꿈 등 기본 포맷을 통일. 불필요한 diff 노이즈 방지.
 - **How to Check**: 프로젝트 루트에 `.editorconfig` 파일 존재
@@ -52,7 +52,7 @@ created: 2026-03-18
 ---
 
 ### cst-commit-convention
-- **Severity**: nice-to-have (weight 1)
+- **Weight**: → index.md 참조
 - **What**: 커밋 메시지 컨벤션 설정 여부
 - **Why**: 일관된 커밋 메시지는 자동 CHANGELOG 생성과 에이전트의 git log 파악을 용이하게 함.
 - **How to Check**: `commitlint.config.*`, `.czrc`, `package.json`의 commitlint 설정, 또는 AGENTS.md에 커밋 규칙 명시

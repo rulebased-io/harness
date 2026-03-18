@@ -17,14 +17,16 @@ OpenAI 하네스 엔지니어링의 세 번째 기둥 "Eval System". Manus는 KV
 
 ## 평가 항목 요약
 
-| ID | Item | Severity | Weight |
-|----|------|----------|--------|
-| eval-dir | Eval 데이터셋 | nice-to-have | 1 |
-| eval-log-config | 세션 로그 평가 | nice-to-have | 1 |
-| eval-autonomy-metric | 자율성 지표 정의 | nice-to-have | 1 |
-| eval-quality-gate | 품질 게이트 | important | 2 |
+> 가중치(W)의 정의는 [index.md](index.md) Summary Table이 SSOT이다.
 
-**만점**: 5점 (important 2 + nice-to-have 3)
+| ID | Item | W |
+|----|------|---|
+| eval-dir | Eval 데이터셋 | 1 |
+| eval-log-config | 세션 로그 평가 | 1 |
+| eval-autonomy-metric | 자율성 지표 정의 | 1 |
+| eval-quality-gate | 품질 게이트 | 2 |
+
+**만점**: 5점
 
 ## 평가 방법
 
