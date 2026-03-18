@@ -1,8 +1,9 @@
 {
-  "name": "@rulebased/core",
+  "name": "@rulebased/harness",
   "version": "1.4.2",
-  "description": "Harness auditor, recommender, initializer - core logic for AI agent harness engineering",
+  "description": "Harness engineering tools for AI agents — audit, init, recommend, eval-log",
   "type": "module",
+  "bin": "dist/cli.js",
   "main": "dist/auditor.js",
   "types": "dist/auditor.d.ts",
   "exports": {
@@ -16,6 +17,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "dev": "tsc --watch",
     "test": "NODE_OPTIONS='--experimental-vm-modules' pnpm exec jest",
     "test:watch": "NODE_OPTIONS='--experimental-vm-modules' pnpm exec jest --watch"
   },
@@ -26,13 +28,12 @@
     "ts-jest": "^29.1.0",
     "typescript": "^5.5.0"
   },
-  "files": ["dist/"],
-  "homepage": "https://rulebased.io",
+  "files": [
+    "dist/"
+  ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/rulebased-io/harness",
-    "directory": "packages/core"
+    "url": "https://github.com/rulebased-io/claude-plugin"
   },
-  "keywords": ["harness", "ai-agent", "audit", "agents-md", "harness-engineering"],
   "license": "MIT"
 }

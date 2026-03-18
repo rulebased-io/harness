@@ -35,4 +35,4 @@ if [ "$ASSISTANT_TURNS" -lt 10 ]; then
 fi
 
 # Run eval-log
-npx rulebased-harness eval-log --file "$TRANSCRIPT_PATH" 2>/dev/null || true
+npx @rulebased/harness eval-log --file "$TRANSCRIPT_PATH" 2>/dev/null || true

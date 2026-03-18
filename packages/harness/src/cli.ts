@@ -3,17 +3,17 @@
  * Harness Plugin CLI
  *
  * Usage:
- *   npx rulebased-harness init [--force]
- *   npx rulebased-harness audit [path]
- *   npx rulebased-harness recommend [path]
+ *   npx @rulebased/harness init [--force]
+ *   npx @rulebased/harness audit [path]
+ *   npx @rulebased/harness recommend [path]
  */
 
 import { resolve } from "node:path";
-import { audit, formatReport, formatScore } from "@rulebased/core/auditor";
-import { recommend, formatRecommendations } from "@rulebased/core/recommender";
-import { initHarness } from "@rulebased/core/initializer";
-import { findLatestTranscript, parseTranscript, computeStats } from "@rulebased/core/transcript";
-import { evaluateLog, formatLogEval } from "@rulebased/core/log-evaluator";
+import { audit, formatReport, formatScore } from "./auditor.js";
+import { recommend, formatRecommendations } from "./recommender.js";
+import { initHarness } from "./initializer.js";
+import { findLatestTranscript, parseTranscript, computeStats } from "./transcript.js";
+import { evaluateLog, formatLogEval } from "./log-evaluator.js";
 
 const args = process.argv.slice(2);
 const command = args[0];
@@ -21,10 +21,10 @@ const command = args[0];
 function printUsage(): void {
   console.log(`
   @rulebased/harness - Harness scaffolding tool for AI agents
-  https://github.com/rulebased-io/harness
+  https://github.com/rulebased-io/claude-plugin
 
   Usage:
-    rulebased-harness <command> [options]
+    npx @rulebased/harness <command> [options]
 
   Commands:
     audit [path]          Audit harness coverage (17 criteria, score 0-100)
@@ -40,15 +40,15 @@ function printUsage(): void {
     -v, --version         Show version
 
   Examples:
-    rulebased-harness audit              Audit the current directory
-    rulebased-harness audit ./my-app     Audit a specific path
-    rulebased-harness audit --json       Output as JSON
-    rulebased-harness recommend          Get improvement recommendations
-    rulebased-harness init               Initialize harness
-    rulebased-harness init --force       Overwrite existing files
+    npx @rulebased/harness audit              Audit the current directory
+    npx @rulebased/harness audit ./my-app     Audit a specific path
+    npx @rulebased/harness audit --json       Output as JSON
+    npx @rulebased/harness recommend          Get improvement recommendations
+    npx @rulebased/harness init               Initialize harness
+    npx @rulebased/harness init --force       Overwrite existing files
 
   Skills (skills.sh):
-    npx skills add rulebased-io/harness
+    npx skills add rulebased-io/claude-plugin
 `);
 }
 
@@ -150,7 +150,7 @@ switch (command) {
 
   case "-v":
   case "--version":
-    console.log("@rulebased/harness v1.0.0");
+    console.log("@rulebased/harness v1.4.2");
     break;
 
   case "-h":

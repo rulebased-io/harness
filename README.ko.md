@@ -14,16 +14,16 @@ AI 에이전트를 위한 하네스 구축 도구. 프로젝트의 하네스 엔
 
 ```bash
 # 1단계: 마켓플레이스 추가 (Claude Code 내에서)
-/plugin marketplace add rulebased-io/harness
+/plugin marketplace add rulebased-io/claude-plugin
 
 # 2단계: 플러그인 설치
-/plugin install rulebased-harness@rulebased-harness
+/plugin install harness@rulebased
 ```
 
 2. 또는 개발 중 로컬에서 테스트:
 
 ```bash
-claude --plugin-dir ./packages/plugin-claude
+claude --plugin-dir ./packages/harness
 ```
 
 설치 후 사용 가능한 slash 커맨드:
@@ -42,20 +42,20 @@ claude --plugin-dir ./packages/plugin-claude
 
 ```bash
 # 전체 스킬 설치
-npx skills add rulebased-io/harness
+npx skills add rulebased-io/claude-plugin
 
 # 특정 스킬만 설치
-npx skills add rulebased-io/harness --skill harness-audit
+npx skills add rulebased-io/claude-plugin --skill harness-audit
 ```
 
 ### CLI (npm)
 
 ```bash
-npx @rulebased/cli audit
-npx @rulebased/cli score
-npx @rulebased/cli init
-npx @rulebased/cli recommend
-npx @rulebased/cli eval-log
+npx @rulebased/harness audit
+npx @rulebased/harness score
+npx @rulebased/harness init
+npx @rulebased/harness recommend
+npx @rulebased/harness eval-log
 ```
 
 ## 스킬
@@ -134,20 +134,20 @@ Claude Code 대화 기록(transcript)을 분석하여 하네스 부합도를 평
 ## 프로젝트 구조
 
 ```
-@rulebased/harness (pnpm 모노레포)
-├── skills/                      # 스킬 (skills.sh + Claude Code)
-│   ├── audit/SKILL.md
-│   ├── score/SKILL.md
-│   ├── init/SKILL.md
-│   ├── recommend/SKILL.md
-│   └── eval-log/SKILL.md
+@rulebased/harness (pnpm monorepo)
 ├── packages/
-│   ├── core/                    # @rulebased/core - auditor, recommender, initializer, transcript parser
-│   ├── cli/                     # @rulebased/cli - CLI 엔트리포인트
-│   └── plugin-claude/           # @rulebased/plugin-claude - Claude Code 플러그인 (훅, 에이전트)
-├── specs/                       # 스펙 워크플로우 (todo/done/backlog)
-├── tasks/                       # 태스크 워크플로우 (todo/done)
-└── docs/                        # 문서
+│   └── harness/                 # @rulebased/harness - plugin + core + CLI
+│       ├── skills/              # Skills (skills.sh + Claude Code)
+│       ├── commands/            # Claude Code commands
+│       ├── agents/              # Autonomous agents
+│       ├── hooks/               # Plugin hooks
+│       ├── reference/           # Evaluation criteria
+│       ├── docs/                # Shared docs (skills/commands)
+│       ├── src/                 # Auditor, recommender, initializer, CLI
+│       └── tests/               # Tests + fixtures
+├── specs/                       # Spec workflow (todo/done/backlog)
+├── tasks/                       # Task workflow (todo/done)
+└── docs/                        # Documentation
 ```
 
 ## 개발
@@ -170,7 +170,7 @@ pnpm test          # 26개 테스트
 
 ## 로드맵
 
-- [x] npm 배포 — `@rulebased/core`, `@rulebased/cli`
+- [x] npm 배포 — `@rulebased/harness`
 - [ ] 온보딩 위자드 — 프로젝트 타입별 대화형 세팅 (frontend, backend, fullstack)
 - [ ] 내장 템플릿 — 타입별 AGENTS.md, 훅, audit 프리셋
 - [ ] 하네스 가져오기 — 다른 프로젝트의 하네스를 비교 후 적용
