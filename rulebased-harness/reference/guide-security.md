@@ -27,9 +27,127 @@ GitHub 2,500개 AGENTS.md 분석에서 **"절대 시크릿 커밋 금지"가 가
 
 ## 평가 방법
 
-1. `.gitignore`에 `.env*`, `*.key`, `*.pem`, `credentials*`, `secrets*` 패턴 포함 확인
-2. `.gitignore`에 `node_modules/`, `dist/`, `.DS_Store`, `*.log` 등 일반 패턴 확인
+1. `.gitignore`에 시크릿 패턴 포함 확인 (아래 필수 패턴 목록 참조)
+2. `.gitignore`에 일반 민감 파일 패턴 확인
 3. `.github/dependabot.yml`, CI의 `npm audit` 단계, 또는 Snyk 설정 확인
+
+## 설정 예시
+
+### sec-no-secrets + sec-gitignore-patterns — .gitignore
+
+**.gitignore 권장 내용:**
+```gitignore
+# === Secrets (sec-no-secrets: critical) ===
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+credentials.*
+secrets.*
+**/service-account*.json
+.gcp-credentials.json
+
+# === Dependencies ===
+node_modules/
+.pnpm-store/
+vendor/
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# === Build outputs ===
+dist/
+build/
+out/
+*.tsbuildinfo
+
+# === IDE / OS (sec-gitignore-patterns: important) ===
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/settings.json
+*.swp
+*.swo
+*~
+
+# === Logs ===
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# === Coverage / Test ===
+coverage/
+.nyc_output/
+```
+
+**확인할 필수 시크릿 패턴 (sec-no-secrets):**
+
+| 패턴 | 대상 |
+|------|------|
+| `.env` `.env.*` | 환경 변수 |
+| `*.key` `*.pem` | SSL/SSH 키 |
+| `credentials.*` `secrets.*` | 인증 정보 |
+| `**/service-account*.json` | 클라우드 서비스 계정 |
+
+**확인할 일반 패턴 (sec-gitignore-patterns):**
+
+| 패턴 | 대상 |
+|------|------|
+| `node_modules/` | 의존성 |
+| `dist/` `build/` | 빌드 산출물 |
+| `.DS_Store` `Thumbs.db` | OS 파일 |
+| `*.log` | 로그 파일 |
+| `.idea/` `.vscode/settings.json` | IDE 설정 |
+
+### sec-dependency-audit — 의존성 감사
+
+**GitHub Dependabot (.github/dependabot.yml):**
+```yaml
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+```
+
+**CI에서 npm audit (.github/workflows/security.yml):**
+```yaml
+name: Security Audit
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 9 * * 1'  # 매주 월요일
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm ci
+      - run: npm audit --audit-level=high
+```
+
+**Python (pip-audit):**
+```yaml
+      - run: pip install pip-audit
+      - run: pip-audit --strict
+```
 
 ## 등급 기준
 
@@ -40,6 +158,6 @@ GitHub 2,500개 AGENTS.md 분석에서 **"절대 시크릿 커밋 금지"가 가
 
 ## 개선 전략
 
-1. **즉시**: `.gitignore`에 `.env*`, `*.key`, `*.pem` 등 시크릿 패턴 추가
+1. **즉시**: `.gitignore`에 위 시크릿 패턴 추가
 2. **단기**: gitignore.io 활용하여 포괄적 .gitignore 생성
 3. **중기**: `.github/dependabot.yml` 또는 CI에 `npm audit` 추가

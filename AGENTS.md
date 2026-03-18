@@ -134,7 +134,17 @@ created: YYYY-MM-DD
 - references 문서: `type: reference`, `source` (출처 도메인)
 - frontmatter는 파서가 메타데이터로 활용할 수 있으므로, 본문에 중복 기재하지 않는다
 
-### 8. 흔한 실수
+### 8. 플러그인 평가 기준 데이터 원칙 (자동 적용)
+
+**`rulebased-harness/reference/`의 평가 기준은 init·audit·recommend 스킬이 공통으로 사용하는 중립 데이터이다.**
+
+- 특정 스킬의 관점에 치우치지 않는다 (audit 전용 문구, init 전용 문구 금지)
+- 각 항목은 **What**(무엇), **Why**(왜 중요한지), **How to Check**(확인 방법), **Fix**(개선 방법)을 포함한다
+- 코드/설정 예시는 특정 프레임워크에 종속되지 않는 범용 스니펫으로 작성한다
+- 예시가 필요한 경우 guide-*.md(B 파일)에 담고, 항목 정의 *.md(A 파일)는 간결하게 유지한다
+- 3단계 참조 구조를 유지한다: `index.md` → `guide-*.md` → `*.md`
+
+### 9. 흔한 실수
 
 1. ESM에서 `__dirname` 불가 → `fileURLToPath(import.meta.url)` 사용
 2. ts-jest에서 `import.meta.dirname` 미지원 → `fileURLToPath` 패턴 사용

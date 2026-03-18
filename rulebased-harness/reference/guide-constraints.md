@@ -35,6 +35,150 @@ OpenAI 하네스 엔지니어링의 두 번째 기둥 "Architectural Constraints
 4. `.editorconfig` 파일 존재 확인
 5. 커밋 컨벤션: `commitlint.config.*`, `.czrc`, AGENTS.md 내 커밋 규칙
 
+## 설정 예시
+
+### cst-lint — 린터/포매터
+
+**ESLint (eslint.config.js):**
+```javascript
+import js from '@eslint/js';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
+
+export default [
+  js.configs.recommended,
+  {
+    files: ['**/*.ts'],
+    languageOptions: { parser: tsParser },
+    plugins: { '@typescript-eslint': tsPlugin },
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/explicit-function-return-type': 'warn',
+    },
+  },
+];
+```
+
+**Biome (biome.json):**
+```json
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.0/schema.json",
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "suspicious": { "noExplicitAny": "error" }
+    }
+  },
+  "formatter": {
+    "indentStyle": "space",
+    "indentWidth": 2
+  }
+}
+```
+
+### cst-type-safety — 타입 안전성
+
+**TypeScript (tsconfig.json 발췌):**
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "target": "ES2022",
+    "module": "Node16",
+    "moduleResolution": "Node16"
+  }
+}
+```
+
+**Python (pyproject.toml 발췌):**
+```toml
+[tool.mypy]
+strict = true
+warn_return_any = true
+disallow_untyped_defs = true
+```
+
+### cst-precommit — Pre-commit 훅
+
+**Husky + lint-staged:**
+```bash
+# 설치
+npx husky init
+npm install --save-dev lint-staged
+```
+
+`.husky/pre-commit`:
+```bash
+npx lint-staged
+```
+
+`package.json` 발췌:
+```json
+{
+  "lint-staged": {
+    "*.{ts,tsx}": ["eslint --fix", "prettier --write"],
+    "*.{json,md}": ["prettier --write"]
+  }
+}
+```
+
+**Lefthook (lefthook.yml):**
+```yaml
+pre-commit:
+  commands:
+    lint:
+      glob: "*.{ts,tsx}"
+      run: npx eslint --fix {staged_files}
+    format:
+      glob: "*.{ts,tsx,json,md}"
+      run: npx prettier --write {staged_files}
+```
+
+### cst-editorconfig
+
+**.editorconfig:**
+```ini
+root = true
+
+[*]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.md]
+trim_trailing_whitespace = false
+
+[Makefile]
+indent_style = tab
+```
+
+### cst-commit-convention — 커밋 컨벤션
+
+**commitlint (commitlint.config.js):**
+```javascript
+export default {
+  extends: ['@commitlint/config-conventional'],
+  rules: {
+    'type-enum': [2, 'always', [
+      'feat', 'fix', 'docs', 'style', 'refactor',
+      'perf', 'test', 'build', 'ci', 'chore',
+    ]],
+    'subject-max-length': [2, 'always', 72],
+  },
+};
+```
+
+Husky 연동 (`.husky/commit-msg`):
+```bash
+npx --no -- commitlint --edit "$1"
+```
+
 ## 등급 기준
 
 - **A**: 5/5 — 린터 + 타입 + pre-commit + editorconfig + 커밋 컨벤션 완비
