@@ -27,10 +27,10 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_PATH="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 cat <<EOF
-[rulebased-harness plugin]
+[harness plugin]
 CLAUDE_PLUGIN_PATH=${PLUGIN_PATH}
 
-This is the installed path of the rulebased-harness plugin.
+This is the installed path of the harness plugin.
 Use this path to read any plugin files referenced in the skill documentation.
 For example: ${PLUGIN_PATH}/reference/checklist.md
 EOF

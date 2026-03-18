@@ -14,16 +14,16 @@ A harness-building tool for AI agents. Assess how well your project's harness en
 
 ```bash
 # Step 1: Add marketplace (inside Claude Code)
-/plugin marketplace add rulebased-io/harness
+/plugin marketplace add rulebased-io/claude-plugin
 
 # Step 2: Install the plugin
-/plugin install rulebased-harness@rulebased-harness
+/plugin install harness@rulebased
 ```
 
 2. Or test locally during development:
 
 ```bash
-claude --plugin-dir ./packages/plugin-claude
+claude --plugin-dir ./packages/harness
 ```
 
 After installation, the following slash commands are available:
@@ -42,20 +42,20 @@ The plugin also includes a **Stop hook** that automatically evaluates session co
 
 ```bash
 # Install all skills
-npx skills add rulebased-io/harness
+npx skills add rulebased-io/claude-plugin
 
 # Install a specific skill only
-npx skills add rulebased-io/harness --skill harness-audit
+npx skills add rulebased-io/claude-plugin --skill harness-audit
 ```
 
 ### CLI (npm)
 
 ```bash
-npx @rulebased/cli audit
-npx @rulebased/cli score
-npx @rulebased/cli init
-npx @rulebased/cli recommend
-npx @rulebased/cli eval-log
+npx @rulebased/harness audit
+npx @rulebased/harness score
+npx @rulebased/harness init
+npx @rulebased/harness recommend
+npx @rulebased/harness eval-log
 ```
 
 ## Skills
@@ -135,16 +135,16 @@ Evaluates a Claude Code conversation transcript against harness compliance.
 
 ```
 @rulebased/harness (pnpm monorepo)
-├── skills/                      # Skills (skills.sh + Claude Code)
-│   ├── audit/SKILL.md
-│   ├── score/SKILL.md
-│   ├── init/SKILL.md
-│   ├── recommend/SKILL.md
-│   └── eval-log/SKILL.md
 ├── packages/
-│   ├── core/                    # @rulebased/core - Auditor, recommender, initializer, transcript parser
-│   ├── cli/                     # @rulebased/cli - CLI entry point
-│   └── plugin-claude/           # @rulebased/plugin-claude - Claude Code plugin (hooks, agents)
+│   └── harness/                 # @rulebased/harness - plugin + core + CLI
+│       ├── skills/              # Skills (skills.sh + Claude Code)
+│       ├── commands/            # Claude Code commands
+│       ├── agents/              # Autonomous agents
+│       ├── hooks/               # Plugin hooks
+│       ├── reference/           # Evaluation criteria
+│       ├── docs/                # Shared docs (skills/commands)
+│       ├── src/                 # Auditor, recommender, initializer, CLI
+│       └── tests/               # Tests + fixtures
 ├── specs/                       # Spec workflow (todo/done/backlog)
 ├── tasks/                       # Task workflow (todo/done)
 └── docs/                        # Documentation
@@ -170,7 +170,7 @@ Grades: A (90+), B (75+), C (60+), D (40+), F
 
 ## Roadmap
 
-- [x] npm publish — `@rulebased/core` and `@rulebased/cli`
+- [x] npm publish — `@rulebased/harness`
 - [ ] Onboarding wizard — interactive setup by project type (frontend, backend, fullstack)
 - [ ] Built-in templates — per-project-type AGENTS.md, hooks, and audit presets
 - [ ] Harness import — bring harness setup from another project, diff and apply
