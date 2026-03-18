@@ -4,37 +4,35 @@ description: Initializes the harness structure for the current project (AGENTS.m
 ---
 
 > **Plugin path**: The `CLAUDE_PLUGIN_PATH` value provided by the hook is the root of this plugin.
-> Use it to read plugin files when additional context is needed (e.g. `${CLAUDE_PLUGIN_PATH}/reference/checklist.md`).
+> Read `${CLAUDE_PLUGIN_PATH}/reference/index.md` for the full list of harness elements to initialize.
+> **Reading order**: `index.md` → `guide-*.md` → `*.md` (only if needed)
 
 Initializes the harness engineering structure for the current project.
 
-## Tasks Performed
+## What to Create
 
-1. Creates the following in the project root:
-   - `AGENTS.md` - Agent rules (build instructions, architecture, common pitfalls)
-   - `CLAUDE.md` - References AGENTS.md
-   - `specs/todo/`, `specs/done/`, `specs/backlog/` - Spec workflow
-   - `tasks/todo/`, `tasks/done/` - Task workflow
-   - `.gitignore` (if not already present)
+Based on the 36-item audit criteria in `${CLAUDE_PLUGIN_PATH}/reference/index.md`, initialize:
 
-2. Existing files are skipped.
+### Critical (must create)
+- `AGENTS.md` — Agent rules with: build commands, architecture, pitfalls, conventions, boundaries
+- `CLAUDE.md` — References AGENTS.md
+- Test script in `package.json` (if missing)
 
-3. AGENTS.md contains TODO markers that should be filled in with project-specific content after generation.
+### Important (should create)
+- `.gitignore` with secret exclusion patterns (`.env*`, `*.key`, `*.pem`)
+- `README.md` (if missing)
+
+### Workflow structure
+- `specs/todo/`, `specs/done/`, `specs/backlog/`
+- `tasks/todo/`, `tasks/done/`
 
 ## Execution
 
-Use the CLI:
+Existing files are skipped. AGENTS.md contains TODO markers to fill in.
+
+CLI alternative:
 ```bash
 npx rulebased-harness init
 ```
-
-Or manually create the files listed above.
-
-Fill in the TODO items in the generated AGENTS.md to match your project:
-- Project description
-- Build/test commands
-- Directory structure
-- Coding conventions
-- Common pitfalls to avoid
 
 $ARGUMENTS

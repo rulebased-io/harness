@@ -147,5 +147,5 @@ created: YYYY-MM-DD
 |------|--------|------|
 | 문서 | `docs/index.md` | 시작하기, 아키텍처, 설치, 사용법 |
 | 스킬 | `skills/` | init, audit, recommend |
-| Audit 체크리스트 | `rulebased-harness/reference/checklist.md` | 17개 감사 항목 상세 |
+| Audit 기준 인덱스 | `rulebased-harness/reference/index.md` | 8 카테고리, 36항목 → guide-*.md → *.md |
 | 외부 레퍼런스 | `references/harness-engineering/` | 업체별 공식 문서/블로그 링크 모음 (14개 파일) |

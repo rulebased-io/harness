@@ -1,62 +1,57 @@
 ---
 name: audit
-description: Audits your project's harness engineering setup and assigns a score (checks 17 items including AGENTS.md, specs, constraints, eval, etc.)
+description: Audits your project's harness engineering setup and assigns a score (36 items across 8 categories)
 ---
 
 > **Plugin path**: The `CLAUDE_PLUGIN_PATH` value provided by the hook is the root of this plugin.
-> Use it to read plugin files. Plugin structure:
+> Start by reading `${CLAUDE_PLUGIN_PATH}/reference/index.md` — it indexes all evaluation guides.
+>
+> **Reading order**: `index.md` → `guide-*.md` (methodology) → `*.md` (item details, only if needed)
+>
 > ```
-> ${CLAUDE_PLUGIN_PATH}/
-> ├── reference/checklist.md    ← Full audit checklist (17 items, severity, how-to)
-> ├── skills/audit/SKILL.md     ← This file
-> ├── skills/init/SKILL.md
-> ├── skills/recommend/SKILL.md
-> ├── skills/eval-log/SKILL.md
-> └── agents/harness-auditor.md
+> ${CLAUDE_PLUGIN_PATH}/reference/
+> ├── index.md                        ← Start here: 8 categories, 36 items, scoring
+> ├── guide-context-engineering.md     ← Evaluation guide (links to criteria)
+> ├── guide-workflow.md
+> ├── guide-constraints.md
+> ├── guide-eval.md
+> ├── guide-build-and-test.md
+> ├── guide-documentation.md
+> ├── guide-security.md
+> ├── guide-agent-autonomy.md
+> ├── context-engineering.md           ← Per-item criteria (What/Why/How/Fix)
+> ├── workflow.md
+> ├── constraints.md
+> ├── eval.md
+> ├── build-and-test.md
+> ├── documentation.md
+> ├── security.md
+> └── agent-autonomy.md
 > ```
 
 Audits the current project's harness engineering setup.
 
-## Audit Criteria
+## How to Audit
 
-The audit is based on the three pillars of harness engineering:
+1. Read `${CLAUDE_PLUGIN_PATH}/reference/index.md` for the scoring system and 36-item summary
+2. For each category, read the `guide-*.md` file for evaluation methodology and grade criteria
+3. Check each item against the current project
+4. If an item needs deeper understanding, follow the guide's link to the criteria file
+5. Calculate the weighted score (max 50 points) and convert to 0-100 scale
 
-### 1. Context Engineering
-- AGENTS.md exists and contains required sections (build commands, architecture, common pitfalls)
-- CLAUDE.md exists
+## Scoring
 
-### 2. Architectural Constraints
-- Linter/formatter configuration (ESLint, Prettier, Biome, etc.)
-- Pre-commit hook setup (Husky, Lefthook, etc.)
+- **Critical** (weight 3): AGENTS.md, build commands, test scripts, secrets exclusion
+- **Important** (weight 2): Architecture, pitfalls, conventions, boundaries, linter, type safety, quality gate, context completeness, README, .gitignore, gitignore patterns
+- **Nice-to-have** (weight 1): All other items
 
-### 3. Eval & Workflow
-- Eval dataset exists
-- Specs/Tasks workflow directories
+**Max**: 50 points → normalized to 0-100
+**Grades**: A (90+), B (75+), C (60+), D (40+), F (<40)
 
-### 4. Build & Docs
-- Test/build scripts defined
-- CI/CD configuration
-- README.md, .gitignore
+## Output
 
-## Scoring System
+Present results as a per-category breakdown with pass/fail per item, category scores, and an overall grade. Provide specific fix suggestions for failed items.
 
-- **Critical** items (weight 3): AGENTS.md exists, build commands, test scripts
-- **Important** items (weight 2): Architecture description, linter, TypeScript strict
-- **Nice-to-have** items (weight 1): Workflow directories, eval, pre-commit
-
-Score: 0-100 / Grades: A (90+), B (75+), C (60+), D (40+), F
-
-## Execution
-
-Read the full checklist from `${CLAUDE_PLUGIN_PATH}/reference/checklist.md` and check each item against the current project.
-
-You can also use the CLI:
-```bash
-npx rulebased-harness audit
-npx rulebased-harness audit --json
-```
-
-Analyze the results and provide specific improvement suggestions for any failed items.
 To auto-generate missing items, run `/rulebased:harness-recommend`.
 
 $ARGUMENTS
