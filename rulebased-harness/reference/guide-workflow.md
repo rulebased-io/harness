@@ -17,13 +17,15 @@ OpenAI 하네스 엔지니어링에서 "스펙을 먼저 작성하고, 에이전
 
 ## 평가 항목 요약
 
-| ID | Item | Severity | Weight |
-|----|------|----------|--------|
-| wf-specs-dir | specs 디렉토리 | nice-to-have | 1 |
-| wf-tasks-dir | tasks 디렉토리 | nice-to-have | 1 |
-| wf-backlog | backlog 디렉토리 | nice-to-have | 1 |
-| wf-spec-template | spec 템플릿 | nice-to-have | 1 |
-| wf-done-archive | 완료 아카이브 | nice-to-have | 1 |
+> 가중치(W)의 정의는 [index.md](index.md) Summary Table이 SSOT이다.
+
+| ID | Item | W |
+|----|------|---|
+| wf-specs-dir | specs 디렉토리 | 1 |
+| wf-tasks-dir | tasks 디렉토리 | 1 |
+| wf-backlog | backlog 디렉토리 | 1 |
+| wf-spec-template | spec 템플릿 | 1 |
+| wf-done-archive | 완료 아카이브 | 1 |
 
 **만점**: 5점
 

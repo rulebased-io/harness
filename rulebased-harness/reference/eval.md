@@ -12,7 +12,7 @@ created: 2026-03-18
 ---
 
 ### eval-dir
-- **Severity**: nice-to-have (weight 1)
+- **Weight**: → index.md 참조
 - **What**: Eval 데이터셋 디렉토리 존재 여부
 - **Why**: 에이전트의 반복 가능한 평가를 위한 입력/기대 출력 데이터셋. 하네스 변경 시 회귀 테스트 역할.
 - **How to Check**: `evals/`, `eval/`, 또는 `tests/evals/` 디렉토리 존재
@@ -22,7 +22,7 @@ created: 2026-03-18
 ---
 
 ### eval-log-config
-- **Severity**: nice-to-have (weight 1)
+- **Weight**: → index.md 참조
 - **What**: 세션 로그 평가 설정 존재 여부
 - **Why**: 에이전트 세션의 자율성, 도구 다양성, 작업 완성도를 정량 측정. 하네스 개선의 피드백 루프.
 - **How to Check**: hooks에 eval-log 관련 설정, 또는 eval-log 스크립트 존재
@@ -32,7 +32,7 @@ created: 2026-03-18
 ---
 
 ### eval-autonomy-metric
-- **Severity**: nice-to-have (weight 1)
+- **Weight**: → index.md 참조
 - **What**: 에이전트 자율성 측정 기준 정의 여부
 - **Why**: Manus는 KV-cache 히트율을, Stripe는 원샷 성공률을 핵심 지표로 삼음. 측정하지 않으면 개선할 수 없음.
 - **How to Check**: AGENTS.md 또는 eval 설정에 자율성/효율성 목표 지표 정의 존재
@@ -42,7 +42,7 @@ created: 2026-03-18
 ---
 
 ### eval-quality-gate
-- **Severity**: important (weight 2)
+- **Weight**: → index.md 참조
 - **What**: 품질 게이트 설정 (CI 통과 필수 등)
 - **Why**: Stripe는 모든 에이전트 PR이 CI를 통과해야 머지 가능. 자동화된 품질 보장의 마지막 방어선.
 - **How to Check**: GitHub branch protection, CI required checks, 또는 AGENTS.md에 "테스트 통과 후 커밋" 규칙 명시

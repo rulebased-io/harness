@@ -17,13 +17,15 @@ GitHub 2,500개 AGENTS.md 분석에서 **"절대 시크릿 커밋 금지"가 가
 
 ## 평가 항목 요약
 
-| ID | Item | Severity | Weight |
-|----|------|----------|--------|
-| sec-no-secrets | 시크릿 제외 | critical | 3 |
-| sec-gitignore-patterns | 민감 파일 패턴 차단 | important | 2 |
-| sec-dependency-audit | 의존성 감사 설정 | nice-to-have | 1 |
+> 가중치(W)의 정의는 [index.md](index.md) Summary Table이 SSOT이다.
 
-**만점**: 6점 (critical 3 + important 2 + nice-to-have 1)
+| ID | Item | W |
+|----|------|---|
+| sec-no-secrets | 시크릿 제외 | 3 |
+| sec-gitignore-patterns | 민감 파일 패턴 차단 | 2 |
+| sec-dependency-audit | 의존성 감사 설정 | 1 |
+
+**만점**: 6점
 
 ## 평가 방법
 

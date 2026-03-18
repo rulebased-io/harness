@@ -17,15 +17,17 @@ OpenAI 하네스 엔지니어링의 두 번째 기둥 "Architectural Constraints
 
 ## 평가 항목 요약
 
-| ID | Item | Severity | Weight |
-|----|------|----------|--------|
-| cst-lint | 린터/포매터 | important | 2 |
-| cst-precommit | Pre-commit 훅 | nice-to-have | 1 |
-| cst-type-safety | 타입 안전성 | important | 2 |
-| cst-editorconfig | .editorconfig | nice-to-have | 1 |
-| cst-commit-convention | 커밋 컨벤션 | nice-to-have | 1 |
+> 가중치(W)의 정의는 [index.md](index.md) Summary Table이 SSOT이다.
 
-**만점**: 7점 (important 4 + nice-to-have 3)
+| ID | Item | W |
+|----|------|---|
+| cst-lint | 린터/포매터 | 2 |
+| cst-precommit | Pre-commit 훅 | 1 |
+| cst-type-safety | 타입 안전성 | 2 |
+| cst-editorconfig | .editorconfig | 1 |
+| cst-commit-convention | 커밋 컨벤션 | 1 |
+
+**만점**: 7점
 
 ## 평가 방법
 

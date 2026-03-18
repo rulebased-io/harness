@@ -12,7 +12,7 @@ created: 2026-03-18
 ---
 
 ### docs-readme
-- **Severity**: important (weight 2)
+- **Weight**: → index.md 참조
 - **What**: README.md 파일 존재 여부
 - **Why**: 프로젝트의 첫인상이자 사람과 에이전트 모두가 참조하는 기본 문서.
 - **How to Check**: 프로젝트 루트에 `README.md` 파일 존재
@@ -22,7 +22,7 @@ created: 2026-03-18
 ---
 
 ### docs-gitignore
-- **Severity**: important (weight 2)
+- **Weight**: → index.md 참조
 - **What**: .gitignore 파일 존재 여부
 - **Why**: 빌드 산출물, node_modules, 환경 파일 등을 추적에서 제외. 에이전트가 불필요한 파일을 커밋하는 것을 방지.
 - **How to Check**: 프로젝트 루트에 `.gitignore` 파일 존재
@@ -32,7 +32,7 @@ created: 2026-03-18
 ---
 
 ### docs-license
-- **Severity**: nice-to-have (weight 1)
+- **Weight**: → index.md 참조
 - **What**: LICENSE 파일 존재 여부
 - **Why**: 오픈소스 프로젝트의 법적 명확성. 에이전트가 의존성 추가 시 라이선스 호환성 판단 가능.
 - **How to Check**: 프로젝트 루트에 `LICENSE` 또는 `LICENSE.md` 파일 존재
@@ -42,7 +42,7 @@ created: 2026-03-18
 ---
 
 ### docs-changelog
-- **Severity**: nice-to-have (weight 1)
+- **Weight**: → index.md 참조
 - **What**: CHANGELOG 또는 릴리스 노트 존재 여부
 - **Why**: 에이전트가 최근 변경 이력을 파악하여 맥락 있는 작업 가능. 자동 생성 시 커밋 컨벤션과 연동.
 - **How to Check**: `CHANGELOG.md`, `CHANGES.md`, 또는 GitHub Releases 사용 여부

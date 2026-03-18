@@ -17,14 +17,16 @@ created: 2026-03-18
 
 ## 평가 항목 요약
 
-| ID | Item | Severity | Weight |
-|----|------|----------|--------|
-| build-test-script | 테스트 스크립트 | critical | 3 |
-| build-build-script | 빌드 스크립트 | important | 2 |
-| build-ci | CI/CD 설정 | nice-to-have | 1 |
-| build-lockfile | Lock 파일 | nice-to-have | 1 |
+> 가중치(W)의 정의는 [index.md](index.md) Summary Table이 SSOT이다.
 
-**만점**: 7점 (critical 3 + important 2 + nice-to-have 2)
+| ID | Item | W |
+|----|------|---|
+| build-test-script | 테스트 스크립트 | 3 |
+| build-build-script | 빌드 스크립트 | 2 |
+| build-ci | CI/CD 설정 | 1 |
+| build-lockfile | Lock 파일 | 1 |
+
+**만점**: 7점
 
 ## 평가 방법
 
