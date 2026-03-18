@@ -1,34 +1,14 @@
 ---
-description: Initialize harness structure — creates AGENTS.md, specs/, tasks/, .harness.json
+description: Initialize harness structure with reconciliation — creates AGENTS.md, specs/, tasks/ and migrates existing artifacts
 argument-hint: "[--preset minimal|standard] [--force]"
 ---
 
-# /init — Initialize Harness
+Initializes the harness engineering structure for the current project.
 
-Set up harness engineering structure in the current project.
+The `CLAUDE_PLUGIN_PATH` provided by the hook is this plugin's root. Read `${CLAUDE_PLUGIN_PATH}/reference/index.md` for harness elements, `guide-context-engineering.md` for AGENTS.md structure, `guide-security.md` for .gitignore patterns.
 
-## What it creates
-
-- `AGENTS.md` — Agent rules (with TODO markers to fill in)
-- `CLAUDE.md` — References AGENTS.md
-- `.harness.json` — Audit configuration (preset selection)
-- `specs/todo/`, `specs/done/`, `specs/backlog/` — Spec workflow
-- `tasks/todo/`, `tasks/done/` — Task workflow
-- `.gitignore` (if not present)
-
-Existing files are skipped unless `--force` is used.
-
-## Usage
-
-```
-/rulebased-harness:init
-/rulebased-harness:init --preset minimal
-```
-
-Or via CLI:
-```bash
-npx @rulebased/cli init
-npx @rulebased/cli init --preset minimal --force
-```
+Creates: AGENTS.md, CLAUDE.md, .gitignore, README.md, specs/, tasks/ directories.
+Then scans for existing artifacts (TODO.md, backlog.md, plans/) and offers migration to specs/backlog/.
+Warns about hollow (empty) structures after creation.
 
 $ARGUMENTS

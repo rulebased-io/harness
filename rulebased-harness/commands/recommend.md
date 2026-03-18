@@ -1,24 +1,12 @@
 ---
-description: Recommend missing harness elements by priority and auto-generate them
+description: Recommend missing and hollow harness elements by priority, suggest migrations and auto-generate fixes
 argument-hint: "[path]"
 ---
 
-# /recommend — Harness Recommendations
+Audits the current project and recommends improvements.
 
-Audit the project and recommend missing harness elements, sorted by priority.
+The `CLAUDE_PLUGIN_PATH` provided by the hook is this plugin's root. Read `${CLAUDE_PLUGIN_PATH}/reference/index.md` for the 36-item criteria and guide files for code examples.
 
-Items tagged [auto-fix] can be auto-generated with your approval.
-
-## Usage
-
-```
-/rulebased-harness:recommend
-```
-
-Or via CLI:
-```bash
-npx @rulebased/cli recommend
-npx @rulebased/cli recommend --json
-```
+Checks each item (pass/hollow/fail), recommends creation or content filling, and offers migration of existing artifacts. Priority: critical fail → critical hollow → important fail → important hollow → nice-to-have.
 
 $ARGUMENTS

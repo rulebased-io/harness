@@ -1,37 +1,45 @@
 ---
 name: init
-description: Initializes the harness structure for the current project (AGENTS.md, specs/, tasks/, etc.)
+description: Initializes the harness structure and migrates existing project artifacts into it
 ---
 
 Initializes the harness engineering structure for the current project.
 
-## Tasks Performed
+The `CLAUDE_PLUGIN_PATH` provided by the hook is this plugin's root. Read `${CLAUDE_PLUGIN_PATH}/reference/index.md` for the full list of harness elements. Read `${CLAUDE_PLUGIN_PATH}/reference/guide-context-engineering.md` for the AGENTS.md recommended structure, and `${CLAUDE_PLUGIN_PATH}/reference/guide-security.md` for .gitignore patterns.
 
-1. Creates the following in the project root:
-   - `AGENTS.md` - Agent rules (build instructions, architecture, common pitfalls)
-   - `CLAUDE.md` - References AGENTS.md
-   - `specs/todo/`, `specs/done/`, `specs/backlog/` - Spec workflow
-   - `tasks/todo/`, `tasks/done/` - Task workflow
-   - `.gitignore` (if not already present)
+## Phase 1: Scaffold
 
-2. Existing files are skipped.
+**Critical (must create)**:
+- `AGENTS.md` — build commands, architecture, pitfalls, conventions, boundaries
+- `CLAUDE.md` — References AGENTS.md
+- Test script in `package.json` (if missing)
 
-3. AGENTS.md contains TODO markers that should be filled in with project-specific content after generation.
+**Important (should create)**:
+- `.gitignore` with secret exclusion patterns (`.env*`, `*.key`, `*.pem`)
+- `README.md` (if missing)
 
-## Execution
+**Workflow structure**:
+- `specs/todo/`, `specs/done/`, `specs/backlog/`
+- `tasks/todo/`, `tasks/done/`
 
-Use the CLI:
-```bash
-npx rulebased-harness init
-```
+Existing files are skipped.
 
-Or manually create the files listed above.
+## Phase 2: Reconciliation
 
-Fill in the TODO items in the generated AGENTS.md to match your project:
-- Project description
-- Build/test commands
-- Directory structure
-- Coding conventions
-- Common pitfalls to avoid
+구조 생성 후, 프로젝트 내 기존 자산을 탐색하여 마이그레이션 후보를 제시한다.
+
+**탐색 대상**: `TODO.md`, `backlog.md`, `roadmap.md`, `exec-plans/`, `plans/`, `remaining-work.md`, `.github/ISSUE_TEMPLATE/`
+
+**절차**:
+1. 발견된 파일 목록을 사용자에게 보여준다
+2. 미완료 항목을 추출하여 요약한다
+3. `specs/backlog/`에 개별 spec으로 분리할지 묻는다
+4. 승인된 항목만 변환 (frontmatter 포함). 원본은 보존한다
+
+## Phase 3: Hollow Check
+
+빈 구조를 경고한다:
+- "AGENTS.md가 생성되었지만 TODO 마커만 있습니다."
+- "specs/backlog/이 비어 있습니다."
 
 $ARGUMENTS
